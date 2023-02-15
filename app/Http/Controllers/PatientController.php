@@ -6,6 +6,7 @@ use App\Models\Patient;
 use App\Models\InfaChildInfo;
 use App\Models\PregWomen;
 use App\Models\PhilHealthInfo;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -20,7 +21,8 @@ class PatientController extends Controller
 
         // dd(Patient::with('consultation')->get());
         
-        $patients = Patient::with('infaChildInfo','pregWomen','philHealthInfo')->orderBy('id','desc')->paginate(5);
+        $patients = Patient::with('consultation','infaChildInfo','pregWomen','philHealthInfo')->orderBy('id','desc')->paginate(5);
+
         return view('patient.index',compact('patients'));
     }
 
@@ -42,15 +44,58 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {       
+
+        $request->validate([
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'birth_date' => 'required',
+            'sex' => 'required',
+            'civil_status' => 'required',
+            'contact_num' => 'numeric|digits:11',
+          
+        ]);
+        
             if($request->has('infants_child_info')){
+                $request->validate([
+                   
+                    'father_name' =>'required',
+                    'mother_name' =>'required',
+                    'place_delivery' =>'required',
+                    'type_of_delivery' =>'required',
+                    'attended_by' => 'required',
+                    'birth_weight' => 'required',
+                    'birth_height' => 'required',
+                    'date_of_NBS' => 'required',
+                    'mother_TT_status' => 'required',
+                    'immun_at_other_facility' => 'required',
+
+                ]);
+
                 $infa_child = InfaChildInfo::create($request->all()); 
             }
 
             if($request->has('preg_women')){
+
+                 $request->validate([
+                    'gradiva'  => 'required',
+                    'para'  => 'required',
+                    'LMP'  => 'required',
+                    'EDC'  => 'required',
+                    'TT_status'  => 'required',
+                    'name_of_husband'  => 'required',
+                ]);
+
                 $preg_women = PregWomen::create($request->all());
             }
 
             if($request->has('phil_health_info')){
+
+                $request->validate([
+                    'category'  => 'required',
+                    'pin'  => 'required',
+                    'classification'  => 'required',
+                ]);
                 $phil_health = PhilHealthInfo::create($request->all());
             }
             

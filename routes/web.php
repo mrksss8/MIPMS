@@ -31,7 +31,7 @@ use App\Http\Controllers\PatientController;
     })->name('about');
 
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware([])->group(function () {
         Route::controller(PatientController::class)->group(function () {
             Route::get('patients/', 'index')->name('patient.index');
             Route::get('patient/create', 'create')->name('patient.create');

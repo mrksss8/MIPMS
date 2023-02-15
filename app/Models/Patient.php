@@ -28,10 +28,10 @@ class Patient extends Model
         return $this->hasOne(PhilHealthInfo::class,'id', 'phil_health_info_id',);
     }
 
-    // public function consultation()
-    // {
-    //     return $this->belongsTo(Consultation::class,'patient_id', 'id');
-    // }
+    public function consultation()
+    {
+        return $this->belongsTo(Consultation::class, 'id','patient_id');
+    }
 
 
 }
