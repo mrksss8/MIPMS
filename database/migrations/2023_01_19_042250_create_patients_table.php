@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('sex');
             $table->string('civil_status');
-            $table->integer('contact_num');
+            $table->bigInteger('contact_num');
             $table->integer('infa_child_info_id')->nullable();
             $table->integer('preg_women_info_id')->nullable();
             $table->integer('phil_health_info_id')->nullable();
