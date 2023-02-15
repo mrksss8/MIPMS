@@ -131,6 +131,72 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="bg-primary px-5 py-2 text-center " style="color: rgba(255, 255, 255, 0.945)">
+                            Address</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="house_num">House Number: </label>
+                                    <input type="text" class="form-control" name="house_num" id="house_num"
+                                        placeholder="House Number" value={{ old('house_num') }}>
+                                    @error('house_num')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="street">Street: </label>
+                                    <input type="text" class="form-control" name="street" id="street"
+                                        placeholder="Street" value={{ old('street') }}>
+                                    @error('street')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="purok">Purok: </label>
+                                    <input type="text" class="form-control" name="purok" id="purok"
+                                        placeholder="Purok" value={{ old('purok') }}>
+                                    @error('purok')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="brgy">Barangay: </label>
+                                    <input type="text" class="form-control" name="brgy" id="brgy"
+                                        placeholder="Barangay" value={{ old('brgy') }}>
+                                    @error('brgy')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="muni/city">Municipality/City: </label>
+                                    <input type="text" class="form-control" name="muni/city" id="muni/city"
+                                        placeholder="Municipality/City" value={{ old('muni/city') }}>
+                                    @error('muni/city')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="province">Province: </label>
+                                    <input type="text" class="form-control" name="province" id="province"
+                                        placeholder="province" value={{ old('province') }}>
+                                    @error('province')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row mt-4">
                             <div class="col-md-12 mt-5 mb-4">

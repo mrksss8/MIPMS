@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('infa_child_info_id')->nullable();
             $table->integer('preg_women_info_id')->nullable();
             $table->integer('phil_health_info_id')->nullable();
+            $table->integer('address_id')->nullable();
             $table->timestamps();
         });
     }

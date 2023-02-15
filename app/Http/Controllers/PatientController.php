@@ -7,6 +7,7 @@ use App\Models\InfaChildInfo;
 use App\Models\PregWomen;
 use App\Models\PhilHealthInfo;
 use App\Models\Consultation;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -53,6 +54,12 @@ class PatientController extends Controller
             'sex' => 'required',
             'civil_status' => 'required',
             'contact_num' => 'numeric|digits:11',
+            'house_num' => 'required',
+            'street' => 'required',
+            'purok' => 'required',
+            'brgy' => 'required',
+            'muni/city' => 'required',
+            'province'  => 'required',
           
         ]);
         
@@ -98,8 +105,9 @@ class PatientController extends Controller
                 ]);
                 $phil_health = PhilHealthInfo::create($request->all());
             }
-            
-            
+
+            $address = Address::create($request->all());
+
             $patient = new Patient;
             $patient->last_name = $request->last_name;
             $patient->first_name = $request->first_name;
@@ -108,8 +116,8 @@ class PatientController extends Controller
             $patient->sex = $request->sex;
             $patient->civil_status = $request->civil_status;
             $patient->contact_num = $request->contact_num;
-
-
+            
+            
             if($request->has('infants_child_info')){
                 $patient->infa_child_info_id = $infa_child->id;
             }
@@ -122,6 +130,8 @@ class PatientController extends Controller
                 $patient->phil_health_info_id = $phil_health->id;
             }
 
+            $patient->address_id = $address->id;
+            
             $patient->save();
 
         return redirect()->route('patient.index')->withSuccess('Patient added successfully.');
