@@ -174,7 +174,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Other Information</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="other_info"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="other_info"
+                                        style="height: 250px;"></textarea>
                                 </div>
                             </div>
                         </div>

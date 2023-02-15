@@ -168,7 +168,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Comments/Findings</label>
-                                    <textarea class="form-control" name="findings"></textarea>
+                                    <textarea class="form-control" name="findings" style="height: 100px;"></textarea>
                                 </div>
                             </div>
                         </div>
