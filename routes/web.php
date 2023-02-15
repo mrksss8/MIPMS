@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,13 @@ use App\Http\Controllers\PatientController;
     })->name('about');
 
 
-    Route::middleware([])->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get('dashboard/', 'index')->name('dashboard.index');
+        });
+    });
+
+    Route::middleware(['auth'])->group(function () {
         Route::controller(PatientController::class)->group(function () {
             Route::get('patients/', 'index')->name('patient.index');
             Route::get('patient/create', 'create')->name('patient.create');
