@@ -50,13 +50,15 @@ class TreatmentController extends Controller
      */
     public function store(Request $request)
     {
-        
+        ['findings', 'next_consultation', 'consultation_id'];
        
-        $treatment = Treatment::create($request->all());
+        // $treatment = Treatment::create($request->all());
 
-        $consultation = Consultation::find($request->consultation_id);
-        $consultation->treatment_id = $treatment->id;
-        $consultation->save();
+        $treatment = new Treatment;
+        $treatment->findings = $request->findings;
+        $treatment->next_consultation = $request->next_consultation;
+        $treatment->consultation_id = $request->consultation_id;
+        
 
         // $treatment_medecine = TreatmentMedicine::create($request->all());
         //  $treatment_medecine_update = TreatmentMedicine::find($treatment_medecine->id);
@@ -76,17 +78,41 @@ class TreatmentController extends Controller
                     ];   
                     TreatmentMedicine::insert($medicines);
                     
+                    
+                    $request_med = $request->quantity[$i];
+                    $stocks_sum = Medicine::where('med_id',$request->medicine_id[$i])->sum('stocks');
 
-                    $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
-                        $med_stocks = $med->stocks - $request->quantity[$i];
-                    $med->stocks = $med_stocks;
-                    $med->save();
+                    if ($stocks_sum > $request_med){     
+                        while($request_med > 0){
+                        
+                        $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
+                        
+                        if($request_med > $med->stocks){
+                            $med_stocks = $med->stocks - $med->stocks;
+                        }
+                        else{
+                            $med_stocks = $med->stocks - $request_med;
+                        }
+                        
+                        //iterator decreament
+                        $request_med = $request_med - $med->stocks;
 
+                        $med->stocks = $med_stocks;
+                        $med->save();
+                        }
+                     }
+
+                    else{
+                        $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
+                         return redirect()->back()->with('error',"Insuficient Medicince {$med->brand_name}");
+                    }           
                 }
-
-
-        
-
+                $treatment->save();
+                
+                $consultation = Consultation::find($request->consultation_id);
+                $consultation->treatment_id = $treatment->id;
+                $consultation->save();
+                
             return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly');
     }
 
