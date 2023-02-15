@@ -30,7 +30,8 @@
                     <h5 class="mt-3 mb-0">{{ $consultation->patient->last_name }}, {{ $consultation->patient->first_name }}
                     </h5>
                     {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
-                    <p class="text-muted">Bay Area, San Francisco, CA</p>
+                    <p class="text-muted">{{ $consultation->patient->address->brgy }},
+                        {{ $consultation->patient->address->muniCity }}</p>
 
                     <a href="{{ route('patient.show', $consultation->patient->id) }}" class="btn btn-primary mb-3">See
                         Profile</a>
@@ -181,13 +182,14 @@
                                         <label for="medicine_id">Brand Name: </label>
                                         <select class="form-control" name="medicine_id[]" id="medicine_id" required>
                                             <option selected disabled>Brand Name</option>`
-                                            @foreach ($medicines->where('stocks','>',0) as $medicine)
-                                                <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option>
+                                            @foreach ($medicines->where('stocks', '>', 0) as $medicine)
+                                                <option value="{{ $medicine->med_id }}">
+                                                    {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="quantity">Quantity: </label>
@@ -230,7 +232,8 @@
                 $(".delete").fadeIn("1500");
                 //Append a new row of code to the "#items" div
                 $("#items").append(
-                    '<div class="row next-referral"> <div class="col-3"> <div class="form-group"> <label for="medicine_id">Brand Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>');
+                    '<div class="row next-referral"> <div class="col-3"> <div class="form-group"> <label for="medicine_id">Brand Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>'
+                );
             });
             $("body").on("click", ".delete", function(e) {
                 $(".next-referral").last().remove();

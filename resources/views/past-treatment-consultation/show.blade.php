@@ -30,7 +30,8 @@
                     <h5 class="mt-3 mb-0">{{ $consultation->patient->last_name }}, {{ $consultation->patient->first_name }}
                     </h5>
                     {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
-                    <p class="text-muted ">Bay Area, San Francisco, CA</p>
+                    <p class="text-muted ">{{ $consultation->patient->address->brgy }},
+                        {{ $consultation->patient->address->muniCity }}</p>
 
                     <a href="{{ route('patient.show', $consultation->patient->id) }}" class="btn btn-primary my-3">See
                         Profile</a>

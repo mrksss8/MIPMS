@@ -28,7 +28,7 @@
                         class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="mt-3 mb-0">{{ $patient->last_name }}, {{ $patient->first_name }}</h5>
                     {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
-                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                    <p class="text-muted mb-4">{{ $patient->address->brgy }}, {{ $patient->address->muniCity }}</p>
                     <div class="mb-2 border border-primary rounded py-2 ">
                         <p class="text-primary mb-3">PhilHealth Details</p>
                         <p class="text-muted m-0">Category: {{ $patient->philHealthInfo->category ?? 'None' }}</p>
@@ -90,7 +90,12 @@
                             <p class="mb-0">Address</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                            <p class="text-muted mb-0">{{ $patient->address->house_num }},
+                                {{ $patient->address->street }},
+                                {{ $patient->address->purok }},{{ $patient->address->brgy }},
+                                {{ $patient->address->muniCity }},
+                                {{ $patient->address->province }}
+                            </p>
                         </div>
                     </div>
                     <hr class="my-2">

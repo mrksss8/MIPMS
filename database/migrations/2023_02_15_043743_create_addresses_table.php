@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('street');
             $table->string('purok');
             $table->string('brgy');
-            $table->string('muni/city');
+            $table->string('muniCity');
             $table->string('province');
             $table->timestamps();
         });

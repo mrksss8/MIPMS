@@ -58,7 +58,7 @@ class PatientController extends Controller
             'street' => 'required',
             'purok' => 'required',
             'brgy' => 'required',
-            'muni/city' => 'required',
+            'muniCity' => 'required',
             'province'  => 'required',
           
         ]);
@@ -145,7 +145,7 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $patient = Patient::with('infaChildInfo','pregWomen','philHealthInfo')->where('id',$id)->first();
+        $patient = Patient::with('infaChildInfo','pregWomen','philHealthInfo', 'address')->where('id',$id)->first();
         return view('patient.show',compact('patient'));
     }
 

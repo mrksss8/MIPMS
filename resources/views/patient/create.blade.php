@@ -178,10 +178,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="muni/city">Municipality/City: </label>
-                                    <input type="text" class="form-control" name="muni/city" id="muni/city"
-                                        placeholder="Municipality/City" value={{ old('muni/city') }}>
-                                    @error('muni/city')
+                                    <label for="muniCity">Municipality/City: </label>
+                                    <input type="text" class="form-control" name="muniCity" id="muniCity"
+                                        placeholder="Municipality/City" value={{ old('muniCity') }}>
+                                    @error('muniCity')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
