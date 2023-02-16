@@ -68,7 +68,9 @@
                             <p class="mb-0">Birthday</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $consultation->patient->birth_date }}</p>
+                            <p class="text-muted mb-0">
+                                {{ \Carbon\Carbon::parse($consultation->patient->birth_date)->format('F j, Y') }}
+                            </p>
                         </div>
                     </div>
                     <hr class="my-2">
@@ -77,7 +79,9 @@
                             <p class="mb-0">Age</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">20</p>
+                            <p class="text-muted mb-0">
+                                {{ \Carbon\Carbon::parse($consultation->patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                            </p>
                         </div>
                     </div>
                     <hr class="my-2">

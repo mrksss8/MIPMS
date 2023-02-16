@@ -41,7 +41,7 @@
 
                                 @forelse ($consultations as $consultation)
                                     <tr>
-                                        <td>{{ $consultation->date }} </td>
+                                        <td>{{ \Carbon\Carbon::parse($consultation->date)->format('Y, F j') }} </td>
                                         <td>{{ $consultation->patient->last_name }},
                                             {{ $consultation->patient->first_name }}
                                             {{ $consultation->patient->middle_name }}
