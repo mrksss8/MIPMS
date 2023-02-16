@@ -80,10 +80,17 @@ use App\Http\Controllers\DashboardController;
             Route::get('medicine/create', 'create')->name('medicine.create');
             Route::post('medicine/store', 'store')->name('medicine.store');
             // Route::get('medicine/create_medicine/{id}', 'create_medicine')->name('create.medicine');
-                // Route::get('patients/show/{id}', 'show')->name('patient.show');
+            // Route::get('patients/show/{id}', 'show')->name('patient.show');
         });
     });
-
+    
+     Route::middleware(['auth'])->group(function () {
+        Route::controller(MedicineStockController::class)->group(function () {
+            Route::get('medicine/add_stock/create/{id}', 'create')->name('add_stock.create');
+            Route::post('medicine/add_stock/store', 'store')->name('add_stock.store');
+            
+        });
+    });
     Route::middleware(['auth'])->group(function () {
         Route::controller(MedicineCategoryController::class)->group(function () {
             Route::get('medicine-category/', 'create')->name('medicine_category.create');

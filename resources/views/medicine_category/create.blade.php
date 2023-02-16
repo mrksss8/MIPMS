@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label for="category">Category: </label>
                                     <input type="text" class="form-control" name="category" id="category"
-                                        placeholder="Category">
+                                        placeholder="Category" required>
                                 </div>
                             </div>
                         </div>

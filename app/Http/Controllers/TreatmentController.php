@@ -35,7 +35,7 @@ class TreatmentController extends Controller
 
     public function create_treatment($id)
     {
-        $medicines = Medicine::with('dosage')->get();
+        $medicines = Medicine::with('dosage')->groupBy('med_id')->where('stocks', '>', 0)->get();
         $dosages = MedicineDosage::all();
         $consultation = Consultation::with('patient')->findOrFail($id);
 

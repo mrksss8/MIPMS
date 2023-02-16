@@ -38,14 +38,14 @@
                                 <div class="form-group">
                                     <label for="brand_name">Brand Name: </label>
                                     <input type="text" class="form-control" name="brand_name" id="brand_name"
-                                        placeholder="Brand Name">
+                                        placeholder="Brand Name" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_id">Category: </label>
-                                    <select class="form-control" name="category_id" id="category_id" required>
+                                    <select class="form-control" name="category_id" id="category_id">
                                         <option selected disabled>Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->category }}</option>
@@ -59,7 +59,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dosage_id">Dosage: </label>
-                                    <select class="form-control" name="dosage_id" id="dosage_id" required>
+                                    <select class="form-control" name="dosage_id" id="dosage_id">
                                         <option selected disabled>Dosage</option>
                                         @foreach ($dosages as $dosage)
                                             <option value="{{ $dosage->id }}">{{ $dosage->dosage }}</option>
@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     <label for="stocks">Stocks: </label>
                                     <input type="number" class="form-control" name="stocks" id="stocks"
-                                        placeholder="stocks">
+                                        placeholder="stocks" required>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 <div class="form-group">
                                     <label for="expi_date">expiration date: </label>
                                     <input type="date" class="form-control" name="expi_date" id="expi_date"
-                                        placeholder="expi_date">
+                                        placeholder="expi_date" required>
                                 </div>
                             </div>
                         </div>

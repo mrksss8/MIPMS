@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label for="dosage">Dosage: </label>
                                     <input type="text" class="form-control" name="dosage" id="dosage"
-                                        placeholder="Dosage">
+                                        placeholder="Dosage" required>
                                 </div>
                             </div>
                         </div>

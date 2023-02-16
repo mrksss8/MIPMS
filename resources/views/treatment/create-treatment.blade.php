@@ -205,7 +205,7 @@
                                         <label for="medicine_id">Brand Name: </label>
                                         <select class="form-control" name="medicine_id[]" id="medicine_id" required>
                                             <option selected disabled>Brand Name</option>`
-                                            @foreach ($medicines->where('stocks', '>', 0) as $medicine)
+                                            @foreach ($medicines as $medicine)
                                                 <option value="{{ $medicine->med_id }}">
                                                     {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option>
                                             @endforeach
