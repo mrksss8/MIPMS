@@ -68,12 +68,21 @@ class TreatmentController extends Controller
       
         for($i = 0; $i<count($request->medicine_id); $i++)
                 {
+
+                //get medicine category
+                $medic = Medicine::with('category')->where('id',$request->medicine_id[$i])->first();
+                $category =  $medic->category->category;
+
+
                 $medicines = [
                     [
                         'treatment_id' => $treatment->id,
                         'medicine_id' =>  $request->medicine_id[$i],
+                        'category' => $category,
                         'quantity' => $request->quantity[$i],
                         'description' => $request->description[$i],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
                         ]
                     ];   
                     TreatmentMedicine::insert($medicines);

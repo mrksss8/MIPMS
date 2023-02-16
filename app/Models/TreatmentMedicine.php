@@ -9,7 +9,7 @@ class TreatmentMedicine extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['treatment_id','medicine_id','quantity','description'];
+    protected $fillable = ['treatment_id','medicine_id','quantity','description','category'];
 
     public function medicine()
     {

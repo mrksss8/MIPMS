@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('treatment_id')->nullable();
             $table->integer('medicine_id');
+            $table->string('category');
             $table->integer('quantity');
             $table->string('description');
             $table->timestamps();
