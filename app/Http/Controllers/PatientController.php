@@ -9,6 +9,7 @@ use App\Models\PhilHealthInfo;
 use App\Models\Consultation;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -125,7 +126,7 @@ class PatientController extends Controller
             if($request->has('preg_women')){
                 $patient->preg_women_info_id = $preg_women->id;
             }
-
+            
             if($request->has('phil_health_info')){
                 $patient->phil_health_info_id = $phil_health->id;
             }
@@ -133,6 +134,11 @@ class PatientController extends Controller
             $patient->address_id = $address->id;
             
             $patient->save();
+            
+            
+            $p = Patient::find($patient->id);
+            $p->family_id = Carbon::now().$patient->id;
+            $p->save();
 
         return redirect()->route('patient.index')->withSuccess('Patient added successfully.');
     }
