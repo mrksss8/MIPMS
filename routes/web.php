@@ -16,9 +16,9 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     Auth::routes();
 
@@ -113,3 +113,8 @@ use App\Http\Controllers\DashboardController;
            
         });
     });
+
+    Route::controller(SearchPatientController::class)->group(function () {
+            Route::get('/', 'index')->name('search_patient.index');
+            Route::post('/search', 'search')->name('search_patient.search');
+        });
