@@ -20,6 +20,10 @@ class SearchPatientController extends Controller
         ->with('infaChildInfo','pregWomen','philHealthInfo', 'address')
         ->first();
 
+        if($patient == null){
+           return view('search_patient.not-found');
+        }
+
         return view('search_patient.show',compact('patient'));
     }
 
