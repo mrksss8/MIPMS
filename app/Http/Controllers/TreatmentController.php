@@ -65,18 +65,13 @@ class TreatmentController extends Controller
         //  $treatment_medecine_update->treatment_id = $treatment->id;
         //  $treatment_medecine_update->save();
 
-      
-        for($i = 0; $i<count($request->medicine_id); $i++)
-                {
+            if($request->medicine_id != null){
+                for($i = 0; $i<count($request->medicine_id); $i++){
 
                 //get medicine category
                 $medic = Medicine::with('category')->where('id',$request->medicine_id[$i])->first();
-                $category =  $medic->category->category;
-
-
-              
-                    
-                    
+                $category =  $medic->category->category;            
+                         
                     $request_med = $request->quantity[$i];
                     $stocks_sum = Medicine::where('med_id',$request->medicine_id[$i])->sum('stocks');
 
@@ -119,8 +114,13 @@ class TreatmentController extends Controller
                          return redirect()->back()->with('error',"Insuficient Medicince {$med->brand_name}");
                     }           
                 }
+            }
+    
+
+
+        
+
                 $treatment->save();
-                
                 $consultation = Consultation::find($request->consultation_id);
                 $consultation->treatment_id = $treatment->id;
                 $consultation->save();

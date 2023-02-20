@@ -9,7 +9,7 @@ class Consultation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date','age','weight','height','BP','PR','RR','CC','patient_id','other_info','treatment_id'];
+    protected $fillable = ['date','weight','height','BP','PR','RR','CC','patient_id','other_info','treatment_id'];
 
 
     public function patient()

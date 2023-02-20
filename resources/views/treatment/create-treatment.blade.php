@@ -127,13 +127,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="middle_name">Height: </label>
+                                <label for="middle_name">Height (CM): </label>
                                 <input type="number" class="form-control" disabled value="{{ $consultation->height }}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="middle_name">Weight: </label>
+                                <label for="middle_name">Weight (KG): </label>
                                 <input type="number" class="form-control" disabled value="{{ $consultation->weight }}">
                             </div>
                         </div>
@@ -141,13 +141,13 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="last_name">BP: </label>
+                                <label for="last_name">BP/MN/HTG: </label>
                                 <input type="text" class="form-control" disabled value="{{ $consultation->BP }}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="first_name">PR: </label>
+                                <label for="first_name">BPM/PR: </label>
                                 <input type="text" class="form-control" disabled value="{{ $consultation->PR }}">
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="middle_name">CC: </label>
+                                <label for="middle_name">CC/O2/SAT%: </label>
                                 <input type="text" class="form-control" disabled value="{{ $consultation->CC }}">
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Other Information</label>
-                                <textarea class="form-control" disabled value="{{ $consultation->other_info }}"></textarea>
+                                <textarea class="form-control" disabled>{{ $consultation->other_info }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -191,21 +191,21 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Comments/Findings</label>
+                                    <label for="exampleFormControlTextarea1">Comments/Findings/Diagnosis</label>
                                     <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <p class="bg-success text-center py-2" style="width: 30%;">Medicines</p>
+                        <p class="bg-success text-center py-2" style="width: 30%;">Frequency</p>
 
                         <div id="items">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group">
-                                        <label for="medicine_id">Brand Name: </label>
+                                        <label for="medicine_id">Brand Name/Generic Name: </label>
                                         <select class="form-control" name="medicine_id[]" id="medicine_id" required>
-                                            <option selected disabled>Brand Name</option>`
+                                            <option selected disabled>Brand Name/Generic Name</option>`
                                             @foreach ($medicines as $medicine)
                                                 <option value="{{ $medicine->med_id }}">
                                                     {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option>
@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="form-group">
                                         <label for="quantity">Quantity: </label>
                                         <input type="number" class="form-control" name="quantity[]" id="quantity"
@@ -256,7 +256,7 @@
                 $(".delete").fadeIn("1500");
                 //Append a new row of code to the "#items" div
                 $("#items").append(
-                    '<div class="row next-referral"> <div class="col-3"> <div class="form-group"> <label for="medicine_id">Brand Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>'
+                    '<div class="row next-referral"> <div class="col-3"> <div class="form-group"> <label for="medicine_id">Brand Name/Generic Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name/Generic Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>'
                 );
             });
             $("body").on("click", ".delete", function(e) {

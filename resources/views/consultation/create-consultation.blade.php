@@ -111,62 +111,77 @@
                             Information</p>
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="last_name">Date: </label>
                                     <input type="date" class="form-control" name="date" id="date"
-                                        placeholder="Date">
+                                        placeholder="Date" value={{ old('date') }}>
+                                    @error('date')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
+
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="first_name">Age: </label>
-                                    <input type="number" class="form-control" name="age" id="age"
-                                        placeholder="Age">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="middle_name">Height: </label>
+                                    <label for="middle_name">Height (CM): </label>
                                     <input type="number" class="form-control" name="height" id="height"
-                                        placeholder="Height">
+                                        placeholder="Height" value={{ old('height') }}>
+                                    @error('height')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="middle_name">Weight: </label>
+                                    <label for="middle_name">Weight (KG): </label>
                                     <input type="number" class="form-control" name="weight" id="weght"
-                                        placeholder="Weight">
+                                        placeholder="Weight" value={{ old('weight') }}>
+                                    @error('weight')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="last_name">BP: </label>
+                                    <label for="last_name">BP/MN/HTG: </label>
                                     <input type="text" class="form-control" name="BP" id="BP"
-                                        placeholder="BP">
+                                        placeholder="BP" value={{ old('BP') }}>
+                                    @error('BP')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="first_name">PR: </label>
+                                    <label for="first_name">BPM/PR: </label>
                                     <input type="text" class="form-control" name="PR" id="PR"
-                                        placeholder="PR">
+                                        placeholder="PR" value={{ old('PR') }}PR>
+                                    @error('PR')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="middle_name">RR: </label>
-                                    <input type="text" class="form-control" name="RR" id="RR"
-                                        placeholder="RR">
+                                    <input type="number" class="form-control" name="RR" id="RR"
+                                        placeholder="RR" value={{ old('RR') }}>
+                                    @error('RR')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="middle_name">CC: </label>
+                                    <label for="middle_name">CC/O2/SAT%: </label>
                                     <input type="text" class="form-control" name="CC" id="CC"
-                                        placeholder="CC">
+                                        placeholder="CC" value={{ old('CC') }}>
+                                    @error('CC')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

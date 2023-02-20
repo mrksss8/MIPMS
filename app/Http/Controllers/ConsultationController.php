@@ -50,6 +50,18 @@ class ConsultationController extends Controller
      */
     public function store(Request $request)
     {
+
+         $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'weight' => 'required',
+            'height' => 'required',
+            'BP' => 'required',
+            'PR' => 'required',
+            'RR' => 'required',
+            'CC' => 'required',
+            'patient_id' => 'required',
+          
+        ]);
         Consultation::create($request->all());
         return redirect()->route('consultation.create')->withSuccess('Consultation added successfully.');;
     }

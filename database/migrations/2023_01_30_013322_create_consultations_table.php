@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->integer('age');
             $table->integer('weight');
             $table->integer('height');
             $table->string('BP');
