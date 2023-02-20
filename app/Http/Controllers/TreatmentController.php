@@ -74,24 +74,27 @@ class TreatmentController extends Controller
                 $category =  $medic->category->category;
 
 
-                $medicines = [
-                    [
-                        'treatment_id' => $treatment->id,
-                        'medicine_id' =>  $request->medicine_id[$i],
-                        'category' => $category,
-                        'quantity' => $request->quantity[$i],
-                        'description' => $request->description[$i],
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
-                        ]
-                    ];   
-                    TreatmentMedicine::insert($medicines);
+              
                     
                     
                     $request_med = $request->quantity[$i];
                     $stocks_sum = Medicine::where('med_id',$request->medicine_id[$i])->sum('stocks');
 
                     if ($stocks_sum > $request_med){     
+
+                            $medicines = [
+                                    [
+                                        'treatment_id' => $treatment->id,
+                                        'medicine_id' =>  $request->medicine_id[$i],
+                                        'category' => $category,
+                                        'quantity' => $request->quantity[$i],
+                                        'description' => $request->description[$i],
+                                        'created_at' => Carbon::now(),
+                                        'updated_at' => Carbon::now()
+                                    ]
+                                ];   
+                            TreatmentMedicine::insert($medicines);
+
                         while($request_med > 0){
                         
                         $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
