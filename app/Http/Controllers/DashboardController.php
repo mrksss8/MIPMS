@@ -17,7 +17,7 @@ class DashboardController extends Controller
 
         $forTreatment_count = Consultation::doesntHave('treatment')->count();
 
-        $criticalMedicine_count = Medicine::where('stocks','<=',10)->count();
+        $criticalMedicine_count = Medicine::where('stocks', '<=', 10)->where('stocks', '>', 0)->count();
 
         $treatmentedPatientToday_count = Treatment::whereDate('created_at',Carbon::today())->count();
 
