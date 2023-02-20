@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('gradiva');
             $table->string('para');
-            $table->string('LMP');
-            $table->string('EDC');
+            $table->date('LMP');
+            $table->date('EDC');
             $table->string('TT_status');
             $table->string('name_of_husband');
             $table->timestamps();

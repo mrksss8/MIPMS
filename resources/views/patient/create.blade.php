@@ -276,8 +276,19 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
                                         <label for="attended_by">Attended By: </label>
-                                        <input type="text" name="attended_by" class="form-control" id="attended_by"
-                                            placeholder="Attended by" value={{ old('attended_by') }}>
+                                        <select class="form-control" name="attended_by" id="attended_by"
+                                            value={{ old('attended_by') }}>
+
+                                            <option selected disabled>Attended By</option>
+                                            <option value="Nurse" {{ old('attended_by') == 'Nurse' ? 'selected' : '' }}>
+                                                Nurse</option>
+                                            <option value="Doctor" {{ old('attended_by') == 'Doctor' ? 'selected' : '' }}>
+                                                Doctor</option>
+                                            <option value="Midwife"
+                                                {{ old('attended_by') == 'Midwife' ? 'selected' : '' }}>
+                                                Midwife</option>
+
+                                        </select>
                                         @error('attended_by')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -288,7 +299,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <label for="birth_weight">Birth Weight: </label>
+                                        <label for="birth_weight">Birth Weight (KG): </label>
                                         <input type="number" name="birth_weight" class="form-control" id="birth_weight"
                                             placeholder="Birth Weight" value={{ old('birth_weight') }}>
                                         @error('birth_weight')
@@ -298,7 +309,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <label for="birth_height">Birth Height: </label>
+                                        <label for="birth_height">Birth Height (CM): </label>
                                         <input type="number" name="birth_height" class="form-control" id="birth_height"
                                             placeholder="Birth Height" value={{ old('birth_height') }}>
                                         @error('birth_height')
@@ -323,9 +334,21 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label for="mother_TT_status">Mother TT Status: </label>
-                                        <input type="text" name="mother_TT_status" class="form-control"
-                                            id="mother_TT_status" placeholder="Mother TT status"
+                                        <select class="form-control" name="mother_TT_status" id="mother_TT_status"
                                             value={{ old('mother_TT_status') }}>
+
+                                            <option value="T1" {{ old('attended_by') == 'T1' ? 'selected' : '' }}>
+                                                T1</option>
+                                            <option value="T2" {{ old('attended_by') == 'T2' ? 'selected' : '' }}>
+                                                T2</option>
+                                            <option value="T3" {{ old('attended_by') == 'T3' ? 'selected' : '' }}>
+                                                T3</option>
+                                            <option value="T4" {{ old('attended_by') == 'T4' ? 'selected' : '' }}>
+                                                T4</option>
+                                            <option value="T5" {{ old('attended_by') == 'T5' ? 'selected' : '' }}>
+                                                T5</option>
+
+                                        </select>
                                         @error('mother_TT_status')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -352,7 +375,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="gradiva">Gradiva: </label>
-                                        <input type="text" class="form-control" name="gradiva" id="gradiva"
+                                        <input type="number" class="form-control" name="gradiva" id="gradiva"
                                             placeholder="Gradiva" value={{ old('gradiva') }}>
                                         @error('gradiva')
                                             <span class="text-danger">{{ $message }}</span>
@@ -362,7 +385,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="para">Para: </label>
-                                        <input type="text" class="form-control" name="para" id="para"
+                                        <input type="number" class="form-control" name="para" id="para"
                                             placeholder="Para" value={{ old('para') }}>
                                         @error('para')
                                             <span class="text-danger">{{ $message }}</span>
@@ -372,7 +395,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="LMP">LMP: </label>
-                                        <input type="text" class="form-control" name="LMP" id="LMP"
+                                        <input type="date" class="form-control" name="LMP" id="LMP"
                                             placeholder="LMP" value={{ old('LMP') }}>
                                         @error('LMP')
                                             <span class="text-danger">{{ $message }}</span>
@@ -385,7 +408,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="EDC">EDC: </label>
-                                        <input type="text" class="form-control" name="EDC" id="EDC"
+                                        <input type="date" class="form-control" name="EDC" id="EDC"
                                             placeholder="EDC" value={{ old('EDC') }}>
                                         @error('EDC')
                                             <span class="text-danger">{{ $message }}</span>
@@ -395,8 +418,21 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="TT_status">TT Status: </label>
-                                        <input type="text" class="form-control" name="TT_status" id="TT_status"
-                                            placeholder="TT Status" value={{ old('TT_status') }}>
+                                        <select class="form-control" name="TT_status" id="TT_status"
+                                            value={{ old('TT_status') }}>
+
+                                            <option value="T1" {{ old('TT_status') == 'T1' ? 'selected' : '' }}>
+                                                T1</option>
+                                            <option value="T2" {{ old('TT_status') == 'T2' ? 'selected' : '' }}>
+                                                T2</option>
+                                            <option value="T3" {{ old('TT_status') == 'T3' ? 'selected' : '' }}>
+                                                T3</option>
+                                            <option value="T4" {{ old('TT_status') == 'T4' ? 'selected' : '' }}>
+                                                T4</option>
+                                            <option value="T5" {{ old('TT_status') == 'T5' ? 'selected' : '' }}>
+                                                T5</option>
+
+                                        </select>
                                         @error('TT_status')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -444,9 +480,16 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="classification">Classification: </label>
-                                        <input type="text" class="form-control" name="classification"
-                                            id="classification" placeholder="Classification"
+                                        <select class="form-control" name="classification" id="classification"
                                             value={{ old('classification') }}>
+                                            <option selected disabled>Classification</option>
+                                            <option value="member"
+                                                {{ old('classification') == 'member' ? 'selected' : '' }}>
+                                                Member </option>
+                                            <option value="dependent"
+                                                {{ old('classification') == 'dependent' ? 'selected' : '' }}>
+                                                dependent </option>
+                                        </select>
                                         @error('classification')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

@@ -212,7 +212,8 @@
                                     <p class="mb-0">Birth height</p>
                                 </div>
                                 <div class="col-sm-8">
-                                    <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_weight ?? 'None' }}</p>
+                                    <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_weight ?? 'None' }} CM
+                                    </p>
                                 </div>
                             </div>
                             <hr class="my-2">
@@ -221,7 +222,8 @@
                                     <p class="mb-0">Birth Weight</p>
                                 </div>
                                 <div class="col-sm-8">
-                                    <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_height ?? 'None' }}</p>
+                                    <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_height ?? 'None' }} KG
+                                    </p>
                                 </div>
                             </div>
                             <hr class="my-2">
@@ -230,8 +232,15 @@
                                     <p class="mb-0">Date of NBS</p>
                                 </div>
                                 <div class="col-sm-8">
-                                    {{ \Carbon\Carbon::parse($patient->infaChildInfo->date_of_NBS)->format('F j, Y') ?? 'None' }}
+
+                                    <p>
+                                        @if (isset($patient->infaChildInfo->date_of_NBS))
+                                            {{ \Carbon\Carbon::parse($patient->infaChildInfo->date_of_NBS)->format('F j, Y') }}
+                                        @else
+                                            None
+                                        @endif
                                     </p>
+
                                 </div>
                             </div>
                             <hr class="my-2">
