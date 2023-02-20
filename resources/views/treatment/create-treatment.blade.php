@@ -121,7 +121,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="first_name">Age: </label>
-                                <input type="number" class="form-control" disabled value="20">
+                                <input type="text" class="form-control" disabled
+                                    value=" {{ \Carbon\Carbon::parse($consultation->patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -191,7 +192,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Comments/Findings</label>
-                                    <textarea class="form-control" name="findings" style="height: 100px;"></textarea>
+                                    <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis"></textarea>
                                 </div>
                             </div>
                         </div>
