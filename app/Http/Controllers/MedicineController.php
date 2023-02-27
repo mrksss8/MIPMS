@@ -42,7 +42,15 @@ class MedicineController extends Controller
     public function store(Request $request)
     {
 
-        $medicine = Medicine::create($request->all());
+        $validated_request = $request->validate([
+            'brand_name' => 'required',
+            'stocks' => 'required',
+            'dosage_id' => 'required',
+            'category_id' => 'required',
+            'expi_date' => 'required',
+        ]);
+
+        $medicine = Medicine::create($validated_request);
 
         //update medicine med_id
         $med = Medicine::find($medicine->id);

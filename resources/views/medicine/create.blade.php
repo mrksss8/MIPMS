@@ -38,33 +38,50 @@
                                 <div class="form-group">
                                     <label for="brand_name">Brand Name: </label>
                                     <input type="text" class="form-control" name="brand_name" id="brand_name"
-                                        placeholder="Brand Name" required>
+                                        placeholder="Brand Name" required value={{ old('brand_name') }}>
+                                    @error('brand_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_id">Category: </label>
-                                    <select class="form-control" name="category_id" id="category_id">
+                                    <select class="form-control" name="category_id" id="category_id"
+                                        value={{ old('category_id') }}>
                                         <option selected disabled>Category</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                            <option value="{{ $category->id }}"
+                                                {{ $category->category == old('category_id') ? 'selected' : '' }}>
+                                                {{ $category->category }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('category_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dosage_id">Dosage: </label>
-                                    <select class="form-control" name="dosage_id" id="dosage_id">
+                                    <select class="form-control" name="dosage_id" id="dosage_id"
+                                        value={{ old('dosage_id') }}>
                                         <option selected disabled>Dosage</option>
                                         @foreach ($dosages as $dosage)
-                                            <option value="{{ $dosage->id }}">{{ $dosage->dosage }}</option>
+                                            <option value="{{ $dosage->id }}"
+                                                {{ $dosage->dosage == old('dosage_id') ? 'selected' : '' }}>
+                                                {{ $dosage->dosage }}</option>
                                         @endforeach
                                     </select>
+                                    @error('category_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -72,7 +89,11 @@
                                 <div class="form-group">
                                     <label for="stocks">Stocks: </label>
                                     <input type="number" class="form-control" name="stocks" id="stocks"
-                                        placeholder="stocks" required>
+                                        placeholder="stocks" required value={{ old('stocks') }}>
+                                    @error('stocks')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -81,7 +102,10 @@
                                 <div class="form-group">
                                     <label for="expi_date">expiration date: </label>
                                     <input type="date" class="form-control" name="expi_date" id="expi_date"
-                                        placeholder="expi_date" required>
+                                        placeholder="expi_date" required value={{ old('expi_date') }}>
+                                    @error('expi_date')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
