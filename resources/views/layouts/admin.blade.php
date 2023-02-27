@@ -71,7 +71,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Dashboard') }}</span></a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item {{ Nav::isRoute('analytics.index') }}">
                 <a class="nav-link" href="{{ route('analytics.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Analytics') }}</span></a>
@@ -147,7 +147,7 @@
             </li>
 
             <!-- Nav Item - Patient -->
-            <li class="nav-item">
+            <li class="nav-item  {{ Nav::isRoute('past_treatment_consultation.index') }}">
                 <a class="nav-link d-flex align-items-center" href="{{ route('past_treatment_consultation.index') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span class="ml-2">Past Consultation and Treated </span>
@@ -161,15 +161,20 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Inventory</span>
                 </a>
-                <div id="collapseInventory" class="collapse" aria-labelledby="headingConsultation"
-                    data-parent="#accordionSidebar">
+                <div id="collapseInventory"
+                    class="collapse  {{ Request::is('medicine') ? 'show' : '' }} {{ Request::is('medicine/create') ? 'show' : '' }} {{ Request::is('medicine-category') ? 'show' : '' }} {{ Request::is('medicine-dosage') ? 'show' : '' }}"
+                    aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item " href="{{ route('medicine.index') }}">Medicine List</a>
-                        <a class="collapse-item " href="{{ route('medicine.create') }}">Add Medicine</a>
-                        <a class="collapse-item " href="{{ route('medicine_category.create') }}">Add Medicine
+                        <a class="collapse-item  {{ Nav::isRoute('medicine.index') }}"
+                            href="{{ route('medicine.index') }}">Medicine List</a>
+                        <a class="collapse-item  {{ Nav::isRoute('medicine.create') }}"
+                            href="{{ route('medicine.create') }}">Add Medicine</a>
+                        <a class="collapse-item  {{ Nav::isRoute('medicine_category.create') }}"
+                            href="{{ route('medicine_category.create') }}">Add Medicine
                             Category</a>
-                        <a class="collapse-item " href="{{ route('medicine_dosage.create') }}">Add Medicine
+                        <a class="collapse-item  {{ Nav::isRoute('medicine_dosage.create') }}"
+                            href="{{ route('medicine_dosage.create') }}">Add Medicine
                             Dosage</a>
 
                     </div>
