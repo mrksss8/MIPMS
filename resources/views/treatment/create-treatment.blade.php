@@ -54,6 +54,21 @@
 
                     <a href="{{ route('patient.show', $consultation->patient->id) }}" class="btn btn-primary mb-3">See
                         Profile</a>
+
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Address</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $consultation->patient->address->house_num }},
+                                {{ $consultation->patient->address->street }},
+                                {{ $consultation->patient->address->purok }}, {{ $consultation->patient->address->brgy }},
+                                {{ $consultation->patient->address->muniCity }},
+                                {{ $consultation->patient->address->province }}</p>
+                        </div>
+                    </div>
+                    <hr class="my-2">
                     <div class="row">
                         <div class="col-sm-3">
                             <p class="mb-0">Sex</p>
@@ -192,7 +207,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Comments/Findings/Diagnosis</label>
-                                    <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis"></textarea>
+                                    <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis" required></textarea>
                                 </div>
                             </div>
                         </div>

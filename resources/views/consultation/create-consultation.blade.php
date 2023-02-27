@@ -27,7 +27,7 @@
                         class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="mt-3 mb-0">{{ $patient->last_name }}, {{ $patient->first_name }}</h5>
                     {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
-                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                    <p class="text-muted mb-4"> {{ $patient->address->brgy }}, {{ $patient->address->muniCity }}</p>
 
                     <hr class="my-2">
                     <div class="row">
@@ -35,7 +35,11 @@
                             <p class="mb-0">Address</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                            <p class="text-muted mb-0">{{ $patient->address->house_num }},
+                                {{ $patient->address->street }},
+                                {{ $patient->address->purok }}, {{ $patient->address->brgy }},
+                                {{ $patient->address->muniCity }},
+                                {{ $patient->address->province }}</p>
                         </div>
                     </div>
                     <hr class="my-2">
@@ -62,7 +66,9 @@
                             <p class="mb-0">Age</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">20</p>
+                            <p class="text-muted mb-0">
+                                {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                            </p>
                         </div>
                     </div>
                     <hr class="my-2">

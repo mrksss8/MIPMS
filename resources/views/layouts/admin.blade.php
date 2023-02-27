@@ -150,7 +150,7 @@
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center" href="{{ route('past_treatment_consultation.index') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span class="ml-2">Past Consultation and Treatment </span>
+                    <span class="ml-2">Past Consultation and Treated </span>
                 </a>
 
 
