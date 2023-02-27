@@ -33,7 +33,7 @@
 
                     <form action="{{ route('add_stock.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="med_id" value="{{ $medicine->id }}">
+                        <input type="hidden" name="med_id" value="{{ $medicine->med_id }}">
                         <input type="hidden" name="brand_name" value="{{ $medicine->brand_name }}">
                         <input type="hidden" name="category_id" value="{{ $medicine->category->id }}">
                         <input type="hidden" name="dosage_id" value="{{ $medicine->dosage->id }}">
