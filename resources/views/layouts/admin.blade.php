@@ -255,7 +255,7 @@
                     </button>
 
                     <div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
-                        <h5>Patient Management And Medicine Inventory System</h5>
+                        <h5>Medicine Inventory and Patient Management System</h5>
                     </div>
 
                     <!-- Topbar Search -->
