@@ -17,8 +17,8 @@ class MedicineController extends Controller
     public function index()
     {
 
-        $medicines = Medicine::with('category','dosage')->where('stocks', '>', 0)->orderBy('id','desc')->paginate(15);
-        return view('medicine.index',compact('medicines'));
+        $medicines = Medicine::with('category', 'dosage')->where('stocks', '>', 0)->orderBy('id', 'desc')->paginate(15);
+        return view('medicine.index', compact('medicines'));
     }
 
     /**
@@ -28,9 +28,9 @@ class MedicineController extends Controller
      */
     public function create()
     {
-         $categories = MedicineCategory::all();
-         $dosages = MedicineDosage::all();
-         return view('medicine.create',compact('categories','dosages'));
+        $categories = MedicineCategory::all();
+        $dosages = MedicineDosage::all();
+        return view('medicine.create', compact('categories', 'dosages'));
     }
 
     /**
@@ -43,11 +43,11 @@ class MedicineController extends Controller
     {
 
         $medicine = Medicine::create($request->all());
-        
-            //update medicine med_id
-            $med = Medicine::find($medicine->id);
-            $med->med_id = $medicine->id;
-            $med->save();
+
+        //update medicine med_id
+        $med = Medicine::find($medicine->id);
+        $med->med_id = $medicine->id;
+        $med->save();
 
         return redirect()->back()->withSuccess('Medicine added successfuly!');
     }
