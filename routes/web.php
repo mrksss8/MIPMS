@@ -90,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('medicine/', 'index')->name('medicine.index');
             Route::get('medicine/create', 'create')->name('medicine.create');
             Route::post('medicine/store', 'store')->name('medicine.store');
+            Route::get('medicine/edit/{id}', 'edit')->name('medicine.edit');
+            Route::post('medicine/update/{id}', 'update')->name('medicine.update');
             // Route::get('medicine/create_medicine/{id}', 'create_medicine')->name('create.medicine');
             // Route::get('patients/show/{id}', 'show')->name('patient.show');
         }

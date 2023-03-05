@@ -77,9 +77,12 @@ class MedicineController extends Controller
      * @param  \App\Models\Medicine  $medicine
      * @return \Illuminate\Http\Response
      */
-    public function edit(Medicine $medicine)
+    public function edit($id)
     {
-        //
+        $medicine = Medicine::findOrFail($id);
+        $categories = MedicineCategory::all();
+        $dosages = MedicineDosage::all();
+        return view('medicine.edit', compact('medicine', 'categories', 'dosages'));
     }
 
     /**
@@ -89,9 +92,19 @@ class MedicineController extends Controller
      * @param  \App\Models\Medicine  $medicine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Medicine $medicine)
+    public function update(Request $request, $id)
     {
-        //
+        $validated_request = $request->validate([
+            'brand_name' => 'required',
+            'stocks' => 'required',
+            'dosage_id' => 'required',
+            'category_id' => 'required',
+            'expi_date' => 'required',
+        ]);
+
+        Medicine::findOrFail($id)->update($validated_request);
+
+        return redirect()->route('medicine.index')->withSuccess('Medicine Update successfuly!');
     }
 
     /**

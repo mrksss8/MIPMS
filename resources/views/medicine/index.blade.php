@@ -42,28 +42,30 @@
                         <table class="table" id="myTable">
                             <thead>
                                 <tr>
-                                    <th>Action</th>
                                     <th>Category</th>
                                     <th>Brand Name</th>
                                     <th>Dosage</th>
                                     <th>Stocks</th>
                                     <th>Expiration</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 @forelse ($medicines as $medicine)
                                     <tr>
-                                        <td>
-                                            <a href="{{ route('add_stock.create', $medicine->id) }}"
-                                                class="btn btn-sm btn-success">Add
-                                                Stocks</a>
-                                        </td>
                                         <td>{{ $medicine->category->category }}</td>
                                         <td>{{ $medicine->brand_name }}</td>
                                         <td>{{ $medicine->dosage->dosage }}</td>
                                         <td>{{ $medicine->stocks }}</td>
                                         <td>{{ $medicine->expi_date }}</td>
+                                        <td>
+                                            <a href="{{ route('add_stock.create', $medicine->id) }}"
+                                                class="btn btn-sm btn-success">Add
+                                                Stocks</a>
+                                            <a href="{{ route('medicine.edit', $medicine->id) }}"
+                                                class="btn btn-sm btn-success">Edit</a>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
