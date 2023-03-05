@@ -43,7 +43,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Favicon -->
-    <link href="{{ asset('img/logo.jpeg') }}" rel="icon" type="image/png">
+    <link href="{{ asset('img/logo.png') }}" rel="icon" type="image/png">
 </head>
 
 <body id="page-top">
@@ -52,16 +52,18 @@
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <li class="pt-3 pb-2">
+                <a class="sidebar-brand p-0">
+                    <div class="sidebar-brand-icon">
+                        <div class="d-flex justify-content-center">
+                            <img src="{{ asset('img/logo.png') }}" alt="" width="80px">
+                        </div>
+                        <div class="sidebar-brand-text mx-3 d-flex justify-content-center"> MIPMS - Bay Municipal Clinic
+                        </div>
+                </a>
 
+            </li>
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    {{-- <i class="fas fa-laugh-wink"></i> --}}
-                </div>
-                <div class="sidebar-brand-text mx-3"> MIPMS - Bay Municipal Clinic</div>
-            </a>
-
-
 
             <!-- Divider -->
             {{-- <hr class="sidebar-divider my-0"> --}}
