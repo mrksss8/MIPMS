@@ -29,8 +29,8 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        $for_treatments = Consultation::with('patient')->where('treatment_id',null)->orderBy('id','desc')->paginate(5);
-        return view('treatment.create',compact('for_treatments'));
+        $for_treatments = Consultation::with('patient')->where('treatment_id', null)->orderBy('id', 'desc')->paginate(5);
+        return view('treatment.create', compact('for_treatments'));
     }
 
     public function create_treatment($id)
@@ -39,7 +39,7 @@ class TreatmentController extends Controller
         $dosages = MedicineDosage::all();
         $consultation = Consultation::with('patient')->findOrFail($id);
 
-      return view('treatment.create-treatment',compact('consultation','medicines','dosages'));
+        return view('treatment.create-treatment', compact('consultation', 'medicines', 'dosages'));
     }
 
     /**
@@ -51,81 +51,76 @@ class TreatmentController extends Controller
     public function store(Request $request)
     {
         ['findings', 'next_consultation', 'consultation_id'];
-       
+
         // $treatment = Treatment::create($request->all());
 
         $treatment = new Treatment;
         $treatment->findings = $request->findings;
         $treatment->next_consultation = $request->next_consultation;
         $treatment->consultation_id = $request->consultation_id;
-        
+
+
 
         // $treatment_medecine = TreatmentMedicine::create($request->all());
         //  $treatment_medecine_update = TreatmentMedicine::find($treatment_medecine->id);
         //  $treatment_medecine_update->treatment_id = $treatment->id;
         //  $treatment_medecine_update->save();
 
-            if($request->medicine_id != null){
-                for($i = 0; $i<count($request->medicine_id); $i++){
+        if ($request->medicine_id != null) {
+            for ($i = 0; $i < count($request->medicine_id); $i++) {
 
                 //get medicine category
-                $medic = Medicine::with('category')->where('id',$request->medicine_id[$i])->first();
-                $category =  $medic->category->category;            
-                         
-                    $request_med = $request->quantity[$i];
-                    $stocks_sum = Medicine::where('med_id',$request->medicine_id[$i])->sum('stocks');
+                $medic = Medicine::with('category')->where('id', $request->medicine_id[$i])->first();
+                $category = $medic->category->category;
 
-                    if ($stocks_sum > $request_med){     
+                $request_med = $request->quantity[$i];
+                $stocks_sum = Medicine::where('med_id', $request->medicine_id[$i])->sum('stocks');
 
-                            $medicines = [
-                                    [
-                                        'treatment_id' => $treatment->id,
-                                        'medicine_id' =>  $request->medicine_id[$i],
-                                        'category' => $category,
-                                        'quantity' => $request->quantity[$i],
-                                        'description' => $request->description[$i],
-                                        'created_at' => Carbon::now(),
-                                        'updated_at' => Carbon::now()
-                                    ]
-                                ];   
-                            TreatmentMedicine::insert($medicines);
+                if ($stocks_sum > $request_med) {
+                    $treatment->save();
 
-                        while($request_med > 0){
-                        
-                        $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
-                        
-                        if($request_med > $med->stocks){
+                    $medicines = [
+                        [
+                            'treatment_id' => $treatment->id,
+                            'medicine_id' => $request->medicine_id[$i],
+                            'category' => $category,
+                            'quantity' => $request->quantity[$i],
+                            'description' => $request->description[$i],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ]
+                    ];
+                    TreatmentMedicine::insert($medicines);
+
+                    while ($request_med > 0) {
+
+                        $med = Medicine::where('med_id', $request->medicine_id[$i])->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->latest()->first();
+
+                        if ($request_med > $med->stocks) {
                             $med_stocks = $med->stocks - $med->stocks;
-                        }
-                        else{
+                        } else {
                             $med_stocks = $med->stocks - $request_med;
                         }
-                        
+
                         //iterator decreament
                         $request_med = $request_med - $med->stocks;
 
                         $med->stocks = $med_stocks;
                         $med->save();
-                        }
-                     }
-
-                    else{
-                        $med = Medicine::where('med_id',$request->medicine_id[$i])->where('stocks','>',0)->orderBy('expi_date', 'asc')->latest()->first();
-                         return redirect()->back()->with('error',"Insuficient Medicince {$med->brand_name}");
-                    }           
+                    }
+                } else {
+                    $med = Medicine::where('med_id', $request->medicine_id[$i])->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->latest()->first();
+                    return redirect()->back()->with('error', "Insuficient Medicince {$med->brand_name}");
                 }
             }
-    
+        }
 
 
-        
+        $consultation = Consultation::find($request->consultation_id);
+        $consultation->treatment_id = $treatment->id;
+        $consultation->save();
 
-                $treatment->save();
-                $consultation = Consultation::find($request->consultation_id);
-                $consultation->treatment_id = $treatment->id;
-                $consultation->save();
-                
-            return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly');
+        return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly');
     }
 
     /**

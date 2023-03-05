@@ -18,7 +18,7 @@ class SearchPatientController extends Controller
     {
 
         $patient = Patient::where('family_id', $request->family_id)
-            ->with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address')
+            ->with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address', 'consultation.treatment')
             ->first();
 
         if ($patient == null) {

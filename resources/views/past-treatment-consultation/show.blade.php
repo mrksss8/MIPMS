@@ -177,8 +177,13 @@
                                 </div>
                             </div>
                         </div>
-
                         @foreach ($consultation->treatment->medicine as $medicine)
+                            @if ($loop->first)
+                                <p class="bg-success text-center py-2" style="width: 30%;">
+                                    Medicine
+                                    Given
+                                </p>
+                            @endif
                             <div class="row">
                                 <div class="col-3">
                                     <div class="form-group">

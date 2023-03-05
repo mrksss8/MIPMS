@@ -22,10 +22,10 @@ class PatientController extends Controller
     {
 
         // dd(Patient::with('consultation')->get());
-        
-        $patients = Patient::with('consultation','infaChildInfo','pregWomen','philHealthInfo')->orderBy('id','desc')->paginate(5);
 
-        return view('patient.index',compact('patients'));
+        $patients = Patient::with('consultation', 'infaChildInfo', 'pregWomen', 'philHealthInfo')->orderBy('id', 'desc')->paginate(5);
+
+        return view('patient.index', compact('patients'));
     }
 
     /**
@@ -35,7 +35,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-         return view('patient.create');
+        return view('patient.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {
 
         $request->validate([
             'last_name' => 'required',
@@ -60,85 +60,85 @@ class PatientController extends Controller
             'purok' => 'required',
             'brgy' => 'required',
             'muniCity' => 'required',
-            'province'  => 'required',
-          
+            'province' => 'required',
+
         ]);
-        
-            if($request->has('infants_child_info')){
-                $request->validate([
-                   
-                    'father_name' =>'required',
-                    'mother_name' =>'required',
-                    'place_delivery' =>'required',
-                    'type_of_delivery' =>'required',
-                    'attended_by' => 'required',
-                    'birth_weight' => 'required',
-                    'birth_height' => 'required',
-                    'date_of_NBS' => 'required',
-                    'mother_TT_status' => 'required',
-                    'immun_at_other_facility' => 'required',
 
-                ]);
+        if ($request->has('infants_child_info')) {
+            $request->validate([
 
-                $infa_child = InfaChildInfo::create($request->all()); 
-            }
+                'father_name' => 'required',
+                'mother_name' => 'required',
+                'place_delivery' => 'required',
+                'type_of_delivery' => 'required',
+                'attended_by' => 'required',
+                'birth_weight' => 'required',
+                'birth_height' => 'required',
+                'date_of_NBS' => 'required',
+                'mother_TT_status' => 'required',
+                'immun_at_other_facility' => 'required',
 
-            if($request->has('preg_women')){
+            ]);
 
-                 $request->validate([
-                    'gradiva'  => 'required',
-                    'para'  => 'required',
-                    'LMP'  => 'required',
-                    'EDC'  => 'required',
-                    'TT_status'  => 'required',
-                    'name_of_husband'  => 'required',
-                ]);
+            $infa_child = InfaChildInfo::create($request->all());
+        }
 
-                $preg_women = PregWomen::create($request->all());
-            }
+        if ($request->has('preg_women')) {
 
-            if($request->has('phil_health_info')){
+            $request->validate([
+                'gradiva' => 'required',
+                'para' => 'required',
+                'LMP' => 'required',
+                'EDC' => 'required',
+                'TT_status' => 'required',
+                'name_of_husband' => 'required',
+            ]);
 
-                $request->validate([
-                    'category'  => 'required',
-                    'pin'  => 'required',
-                    'classification'  => 'required',
-                ]);
-                $phil_health = PhilHealthInfo::create($request->all());
-            }
+            $preg_women = PregWomen::create($request->all());
+        }
 
-            $address = Address::create($request->all());
+        if ($request->has('phil_health_info')) {
 
-            $patient = new Patient;
-            $patient->last_name = $request->last_name;
-            $patient->first_name = $request->first_name;
-            $patient->middle_name = $request->middle_name;
-            $patient->birth_date = $request->birth_date;
-            $patient->sex = $request->sex;
-            $patient->civil_status = $request->civil_status;
-            $patient->contact_num = $request->contact_num;
-            
-            
-            if($request->has('infants_child_info')){
-                $patient->infa_child_info_id = $infa_child->id;
-            }
+            $request->validate([
+                'category' => 'required',
+                'pin' => 'required',
+                'classification' => 'required',
+            ]);
+            $phil_health = PhilHealthInfo::create($request->all());
+        }
 
-            if($request->has('preg_women')){
-                $patient->preg_women_info_id = $preg_women->id;
-            }
-            
-            if($request->has('phil_health_info')){
-                $patient->phil_health_info_id = $phil_health->id;
-            }
+        $address = Address::create($request->all());
 
-            $patient->address_id = $address->id;
-            
-            $patient->save();
-            
-            
-            $p = Patient::find($patient->id);
-            $p->family_id = Carbon::now().$patient->id;
-            $p->save();
+        $patient = new Patient;
+        $patient->last_name = $request->last_name;
+        $patient->first_name = $request->first_name;
+        $patient->middle_name = $request->middle_name;
+        $patient->birth_date = $request->birth_date;
+        $patient->sex = $request->sex;
+        $patient->civil_status = $request->civil_status;
+        $patient->contact_num = $request->contact_num;
+
+
+        if ($request->has('infants_child_info')) {
+            $patient->infa_child_info_id = $infa_child->id;
+        }
+
+        if ($request->has('preg_women')) {
+            $patient->preg_women_info_id = $preg_women->id;
+        }
+
+        if ($request->has('phil_health_info')) {
+            $patient->phil_health_info_id = $phil_health->id;
+        }
+
+        $patient->address_id = $address->id;
+
+        $patient->save();
+
+
+        $p = Patient::find($patient->id);
+        $p->family_id = Carbon::now() . $patient->id;
+        $p->save();
 
         return redirect()->route('patient.index')->withSuccess('Patient added successfully.');
     }
@@ -151,8 +151,8 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $patient = Patient::with('infaChildInfo','pregWomen','philHealthInfo', 'address')->where('id',$id)->first();
-        return view('patient.show',compact('patient'));
+        $patient = Patient::with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address', 'consultation.treatment.medicine.dosage')->where('id', $id)->first();
+        return view('patient.show', compact('patient'));
     }
 
     /**

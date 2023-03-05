@@ -9,33 +9,33 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['family_id','last_name', 'first_name', 'middle_name', 'birth_date', 'sex', 'civil_status','contact_num','address_id' ];
+    protected $fillable = ['family_id', 'last_name', 'first_name', 'middle_name', 'birth_date', 'sex', 'civil_status', 'contact_num', 'address_id'];
 
 
     //Relationship
     public function infaChildInfo()
     {
-        return $this->hasOne(InfaChildInfo::class,'id','infa_child_info_id');
+        return $this->hasOne(InfaChildInfo::class, 'id', 'infa_child_info_id');
     }
 
     public function pregWomen()
     {
-        return $this->hasOne(PregWomen::class,'id', 'preg_women_info_id');
+        return $this->hasOne(PregWomen::class, 'id', 'preg_women_info_id');
     }
 
     public function philHealthInfo()
     {
-        return $this->hasOne(PhilHealthInfo::class,'id', 'phil_health_info_id',);
+        return $this->hasOne(PhilHealthInfo::class, 'id', 'phil_health_info_id', );
     }
 
     public function address()
     {
-        return $this->hasOne(Address::class,'id', 'address_id',);
+        return $this->hasOne(Address::class, 'id', 'address_id', );
     }
 
     public function consultation()
     {
-        return $this->belongsTo(Consultation::class, 'id','patient_id');
+        return $this->hasMany(Consultation::class, 'patient_id', 'id');
     }
 
 
