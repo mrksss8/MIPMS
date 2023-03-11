@@ -140,3 +140,12 @@ Route::controller(SearchPatientController::class)->group(function () {
     Route::get('/', 'index')->name('search_patient.index');
     Route::post('/search', 'search')->name('search_patient.search');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(BarangayController::class)->group(
+        function () {
+            Route::get('brgy/', 'index')->name('brgy.index');
+            Route::post('brgy/store', 'store')->name('brgy.store');
+        }
+    );
+});

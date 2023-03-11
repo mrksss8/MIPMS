@@ -169,8 +169,15 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="brgy">Barangay: </label>
-                                    <input type="text" class="form-control" name="brgy" id="brgy"
-                                        placeholder="Barangay" value={{ old('brgy') }}>
+                                    <select class="form-control" name="brgy" id="brgy">
+                                        <option selected disabled>Barangay</option>
+                                        @foreach ($brgys as $brgy)
+                                            <option value="{{ $brgy->barangay }}"
+                                                {{ $brgy->barangay == old('brgy') ? 'selected' : '' }}>
+                                                {{ $brgy->barangay }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @error('brgy')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

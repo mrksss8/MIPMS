@@ -184,21 +184,23 @@
                 </div>
             </li>
 
-            <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('About') }}</span>
-                </a>
-            </li>
-
-            <li class="nav-item {{ Nav::isRoute('register') }}">
-                {{-- @if (Route::has('register')) --}}
-                <a class="nav-link" href="{{ route('register') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegister"
+                    aria-expanded="true" aria-controls="collapseRegister">
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Register</span>
                 </a>
-                {{-- @endif --}}
+                <div id="collapseRegister"
+                    class="collapse  {{ Request::is('brgy') ? 'show' : '' }} {{ Request::is('register') ? 'show' : '' }}"
+                    aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                        <a class="collapse-item  {{ Nav::isRoute('register') }}"
+                            href="{{ route('register') }}">Register User</a>
+                        <a class="collapse-item {{ Nav::isRoute('brgy.index') }}"
+                            href="{{ route('brgy.index') }}">Register Barangay</a>
+                    </div>
+                </div>
             </li>
 
             {{-- @auth
@@ -440,6 +442,13 @@
                                 <a class="dropdown-item" href="{{ route('profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Profile') }}
+                                </a>
+
+                                <!-- Nav Item - About -->
+                                <a class="dropdown-item" href="{{ route('about') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('About') }}
+
                                 </a>
                                 {{-- <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>

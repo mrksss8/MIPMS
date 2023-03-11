@@ -8,6 +8,7 @@ use App\Models\PregWomen;
 use App\Models\PhilHealthInfo;
 use App\Models\Consultation;
 use App\Models\Address;
+use App\Models\Barangay;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -35,7 +36,9 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('patient.create');
+
+        $brgys = Barangay::all();
+        return view('patient.create', compact('brgys'));
     }
 
     /**
