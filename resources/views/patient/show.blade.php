@@ -484,9 +484,33 @@
 
                                                 </div>
                                             @endforeach
-                                            <div class="card-footer text-center">
 
-                                            </div>
+                                            @foreach ($consultation->treatment->laboratories as $laboratory)
+                                                @if ($loop->first)
+                                                    <p class="bg-success text-center py-2" style="width: 30%;">
+                                                        Requested Laboratories
+                                                    </p>
+                                                @endif
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="quantity">Laboratory: </label>
+                                                            <input type="text" class="form-control"
+                                                                value="  {{ $laboratory->lab_name }}" disabled>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="quantity">Description: </label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $laboratory->lab_des }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
                                             </form>
                                         </div>
                                     </div>

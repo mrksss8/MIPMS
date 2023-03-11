@@ -13,7 +13,13 @@ class Treatment extends Model
 
     public function medicine()
     {
-        return $this->belongsToMany(Medicine::class, 'treatment_medicines')->withPivot('quantity','description');
+        return $this->belongsToMany(Medicine::class, 'treatment_medicines')->withPivot('quantity', 'description');
     }
-    
+
+
+    public function laboratories()
+    {
+        return $this->hasMany(Laboratory::class, 'treatment_id');
+    }
+
 }
