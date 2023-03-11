@@ -8,7 +8,7 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('img/logo.jpeg') }}" alt="" width="320px">
+                                <img src="{{ asset('img/logo.png') }}" alt="logo" width="320px">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
