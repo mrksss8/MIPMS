@@ -7,6 +7,8 @@ use App\Models\TreatmentMedicine;
 use App\Models\Consultation;
 use App\Models\Medicine;
 use App\Models\MedicineDosage;
+use App\Models\LaboratoryList;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -38,8 +40,9 @@ class TreatmentController extends Controller
         $medicines = Medicine::with('dosage')->groupBy('med_id')->where('stocks', '>', 0)->get();
         $dosages = MedicineDosage::all();
         $consultation = Consultation::with('patient')->findOrFail($id);
+        $lab_list = LaboratoryList::all();
 
-        return view('treatment.create-treatment', compact('consultation', 'medicines', 'dosages'));
+        return view('treatment.create-treatment', compact('consultation', 'medicines', 'dosages', 'lab_list'));
     }
 
     /**
@@ -113,12 +116,34 @@ class TreatmentController extends Controller
                     return redirect()->back()->with('error', "Insuficient Medicince {$med->brand_name}");
                 }
             }
+        } else {
+            $treatment->save();
+
+            $consultation = Consultation::find($request->consultation_id);
+            $consultation->treatment_id = $treatment->id;
+            $consultation->save();
+
+
+            for ($i = 0; $i < count($request->lab_name); $i++) {
+
+                $lab_des = $request->lab_name[$i] . "_des";
+                $laboratories = [
+                    [
+                        'treatment_id' => $treatment->id,
+                        'lab_name' => $request->lab_name[$i],
+                        'lab_des' => $request->$lab_des,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]
+                ];
+                Laboratory::insert($laboratories);
+            }
         }
 
 
-        $consultation = Consultation::find($request->consultation_id);
-        $consultation->treatment_id = $treatment->id;
-        $consultation->save();
+
+
+
 
         return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly');
     }

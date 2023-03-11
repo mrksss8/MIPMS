@@ -216,7 +216,7 @@
 
                         <div id="items">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="medicine_id">Brand Name/Generic Name: </label>
                                         <select class="form-control" name="medicine_id[]" id="medicine_id" required>
@@ -229,14 +229,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-2">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="quantity">Quantity: </label>
                                         <input type="number" class="form-control" name="quantity[]" id="quantity"
                                             placeholder="Quantity">
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="description">Description: </label>
                                         <input type="text" class="form-control" name="description[]" id="description"
@@ -251,7 +251,32 @@
                             Medicine</button>
                         <a class="delete btn button-white uppercase">- Remove Medicine</a>
 
+                        <br>
+                        <br>
 
+                        <div class="p-md-3">
+                            <p class="bg-success text-center py-2" style="width: 30%;">Laboaratories</p>
+                            @foreach ($lab_list as $lab)
+                                <div class="row py-md-1 my-sm-2">
+                                    <div class="col-md-4 py-1 d-flex align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="lab_name[]"
+                                                value="{{ $lab->lab_name }}" id="flexCheckDiabetes">
+                                            <label class="form-check-label" for="flexCheckDiabetes">
+                                                {{ $lab->lab_name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-check">
+                                            <input type="text" class="form-control"
+                                                name="{{ $lab->lab_name . '_des' }}" id="description"
+                                                placeholder="Description">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-md btn-primary"> Save Treatment </button>
                         </div>
@@ -271,7 +296,7 @@
                 $(".delete").fadeIn("1500");
                 //Append a new row of code to the "#items" div
                 $("#items").append(
-                    '<div class="row next-referral"> <div class="col-3"> <div class="form-group"> <label for="medicine_id">Brand Name/Generic Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name/Generic Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>'
+                    '<div class="row next-referral"> <div class="col-md-3"> <div class="form-group"> <label for="medicine_id">Brand Name/Generic Name: </label> <select class="form-control" name="medicine_id[]" id="medicine_id" required> <option selected disabled>Brand Name/Generic Name</option> @foreach ($medicines as $medicine) <option value="{{ $medicine->med_id }}">{{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option> @endforeach </select> </div> </div><div class="col-md-3"> <div class="form-group"> <label for="quantity">Quantity: </label> <input type="text" class="form-control" name="quantity[]" id="quantity" placeholder="Quantity"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="description">Description: </label> <input type="text" class="form-control" name="description[]" id="description" placeholder="Description"> </div> </div> </div>'
                 );
             });
             $("body").on("click", ".delete", function(e) {
