@@ -23,38 +23,28 @@
         </div>
     @endif
 
-    {{-- <div class="row mb-2">
-        <div class="col-md-6">
-            <canvas id="given_med_count_by_category" class="border border-primary"></canvas>
-        </div>
-    </div> --}}
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row d-flex flex-col">
-                <div class="col-md-12 mb-2">
-                    <canvas id="given_med_count_by_category" class="border border-primary"></canvas>
+    <div class="row p-2">
+        <div class="col col-sm-6">
+            <div class="row">
+                <div class="col-md-12 m-1 p-2">
+                    <canvas id="medCountGivenForPastSevenDays" class="border border-primary p-2"></canvas>
                 </div>
-                <div class="col-md-12 mb-2">
-                    {{-- <canvas id="numTreated_lastSevenDays" class="border border-primary"></canvas> --}}
+                <div class="col-md-12 m-1 p-2">
+                    <canvas id="patientCountsByBrgy" class="border border-primary p-2"></canvas>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="row d-flex flex-col">
-                <div class="col-md-12 mb-2">
-                    <canvas id="numtreatment_medicine_lastSevenDays" class="border border-primary"></canvas>
+        <div class="col col-sm-6">
+            <div class="row">
+                <div class="col-md-12 m-1 p-2">
+                    <canvas id="treatmentCountForPastSevenDays" class="border border-primary p-2"></canvas>
                 </div>
-                <div class="col-md-12 mb-2">
-                    <canvas id="numTreated_lastSevenDays" class="border border-primary"></canvas>
+                <div class="col-md-12 m-1 p-2">
+                    <canvas id="medCountByCategory" class="border border-primary p-2"></canvas>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
 
 @endsection
@@ -66,93 +56,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        const ctx = document.getElementById('numTreated_lastSevenDays');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($dataLabels); ?>,
-                datasets: [{
-                    label: 'No. of Treatment for the last 7 days',
-                    data: <?php echo json_encode($dataPoints); ?>,
-                    borderWidth: 1,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
-                    ],
-                }]
-            },
-            plugins: [ChartDataLabels],
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-
-                }
-            }
-        });
-
-        const cty = document.getElementById('numtreatment_medicine_lastSevenDays');
-        new Chart(cty, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($dataLabels_treat_med); ?>,
-                datasets: [{
-                    label: 'No. of given medicine for the last 7 days',
-                    data: <?php echo json_encode($dataPoints_treat_med); ?>,
-                    borderWidth: 1,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
-                    ],
-                }]
-            },
-            plugins: [ChartDataLabels],
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-
-                }
-            }
-        });
-        const ctz = document.getElementById('given_med_count_by_category');
+        const ctz = document.getElementById('patientCountsByBrgy');
         new Chart(ctz, {
             type: 'doughnut',
             data: {
-                labels: <?php echo json_encode($dataLabels_med_count_by_category); ?>,
+                labels: <?php echo json_encode($DL_patientBrgy); ?>,
                 datasets: [{
-                    label: 'No. given medicine for the past 30 days',
-                    data: <?php echo json_encode($dataPoints_med_count_by_category); ?>,
+                    label: 'Patients per Barangay',
+                    data: <?php echo json_encode($DP_patientCount); ?>,
                     borderWidth: 1,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -183,7 +94,139 @@
                     },
                     title: {
                         display: true,
-                        text: 'No. of given medicine by category for past 30 days'
+                        text: 'No. of Consultations per Barangay this month'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+
+                },
+            }
+        });
+
+        const ctx = document.getElementById('treatmentCountForPastSevenDays');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_treatmentDay); ?>,
+                datasets: [{
+                    label: 'No. of Treatment for the last 7 days',
+                    data: <?php echo json_encode($DP_treatmentCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+
+                }
+            }
+        });
+
+
+        const cty = document.getElementById('medCountGivenForPastSevenDays');
+        new Chart(cty, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_medGivenDay); ?>,
+                datasets: [{
+                    label: 'No. of given medicine for the last 7 days',
+                    data: <?php echo json_encode($DP_medCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+
+                }
+            }
+        });
+
+
+        const ctw = document.getElementById('medCountByCategory');
+        new Chart(ctw, {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($DL_medCategory); ?>,
+                datasets: [{
+                    label: 'No. given medicine by Category',
+                    data: <?php echo json_encode($DP_medCategoryCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of given medicine by category'
                     }
                 },
                 scales: {

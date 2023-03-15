@@ -7,85 +7,77 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Treatment;
 use App\Models\TreatmentMedicine;
 use App\Models\Medicine;
+use App\Models\Consultation;
 use Carbon\Carbon;
 
 class AnalyticsController extends Controller
 {
     public function index()
     {
-        //  $datas = DB::table('medicines')->get('*')->toArray();
 
-        //     foreach($datas as $data){
-
-        //         $dataPoints[] = array(
-        //             'label'=> $data->brand_name,
-        //             'y'=>$data->stocks,
-        //         );
-        //     }
-
-        // 
-
-        //global variable to get last 7 days 
-        $date = Carbon::today()->subDays(7);
-        $treatments = Treatment::where('created_at', '>=', $date)->get()->groupBy(function ($d) {
+        //treatment count for 7 days
+        $treatmentCountForPastSevenDays = Treatment::where('created_at', '>=', Carbon::today()->subDays(7))->get()->groupBy(function ($d) {
             return Carbon::parse($d->created_at)->format('Y-m-d');
         });
 
-        foreach ($treatments as $treatment => $record) {
-            //  echo $treatment;
+        $DL_treatmentDay[] = null;
+        $DP_treatmentCount[] = null;
+        foreach ($treatmentCountForPastSevenDays as $day => $treament) {
+            $count = count($treament);
 
-            $count = count($record);
-            //  echo $count;
-
-            //     $data[] = array(
-            //     'date' => $treatment,
-            //     'count' => $count,
-            //    );
-
-            $dataLabels[] = $treatment;
-            $dataPoints[] = $count;
+            $DL_treatmentDay[] = $day;
+            $DP_treatmentCount[] = $count;
         }
 
-        // $treatment_medicines = TreatmentMedicine::where('created_at', '>=', $date)
-        //     ->groupBy('category')
-        //     ->selectRaw('category, sum(quantity) as total_quantity')
-        //     ->get();
-
-        $treatment_medicines = TreatmentMedicine::where('created_at', '>=', $date)->get()->groupBy(function ($q) {
+        //medicine count given for 7 days
+        $medCountGivenForPastSevenDays = TreatmentMedicine::where('created_at', '>=', Carbon::today()->subDays(7))->get()->groupBy(function ($q) {
             return Carbon::parse($q->created_at)->format('Y-m-d');
         });
 
-        foreach ($treatment_medicines as $treatment_medicine => $records) {
-            $med_count = 0;
-            foreach ($records as $key => $record) {
-                $med_count = $med_count + $record->quantity;
+        $DL_medGivenDay[] = null;
+        $DP_medCount[] = null;
+        foreach ($medCountGivenForPastSevenDays as $day => $meds) {
+            $medCount = 0;
+            foreach ($meds as $key => $med) {
+                $medCount = $medCount + $med->quantity;
 
             }
-            $dataPoints_treat_med[] = $med_count;
-            $dataLabels_treat_med[] = $treatment_medicine;
+            $DL_medGivenDay[] = $day;
+            $DP_medCount[] = $medCount;
         }
 
-        // $med = DB::table('treatment_medicines')
-        //      ->select('quantity')
-        //      ->groupBy('medicine_id')
-        //      ->get();
-
-        // $med = TreatmentMedicine::with('medicine')->groupBy('medicine_id')->count();
-
-        // $med  = DB::table('treatment_medicines')
-        //      ->select('quantity', DB::raw('count(*) as total'))
-        //      ->groupBy('medicine_id')
-        //      ->get();
-
-        $med_count_by_categories = TreatmentMedicine::groupBy('category')->where('created_at', '>=', Carbon::today())
+        //medicine count by Category
+        $medCountByCategories = TreatmentMedicine::groupBy('category')->where('created_at', '>=', Carbon::today())
             ->selectRaw('category, sum(quantity) as sum')
             ->get();
 
-        foreach ($med_count_by_categories as $med_count_by_category) {
-            $dataPoints_med_count_by_category[] = $med_count_by_category->sum;
-            $dataLabels_med_count_by_category[] = $med_count_by_category->category;
-
+        $DL_medCategory[] = null;
+        $DP_medCategoryCount[] = null;
+        foreach ($medCountByCategories as $medCountByCategory) {
+            $DL_category[] = $medCountByCategory->category;
+            $DP_categoryCount[] = $medCountByCategory->sum;
         }
-        return view('analytics.index', compact('dataLabels', 'dataPoints', 'dataPoints_treat_med', 'dataLabels_treat_med', 'dataPoints_med_count_by_category', 'dataLabels_med_count_by_category'));
+
+        //patient count by BRGY
+        $currentMonth = date('m');
+        $patientCountsByBrgys = DB::table('consultations')
+            ->join('patients', 'consultations.patient_id', '=', 'patients.id')
+            ->join('addresses', 'patients.address_id', '=', 'addresses.id')
+            ->whereMonth('consultations.created_at', '=', $currentMonth)
+            ->select('addresses.brgy', DB::raw('count(patients.id) as patient_count'))
+            ->groupBy('addresses.brgy')
+            ->get();
+
+        $DL_patientBrgy[] = null;
+        $DP_patientCount[] = null;
+        foreach ($patientCountsByBrgys as $patientCountsByBrgy) {
+            $DL_patientBrgy[] = $patientCountsByBrgy->brgy;
+            $DP_patientCount[] = $patientCountsByBrgy->patient_count;
+        }
+
+        return view('analytics.index', compact('DL_patientBrgy', 'DP_patientCount', 'DL_treatmentDay', 'DP_treatmentCount', 'DL_medGivenDay', 'DP_medCount', 'DL_medCategory', 'DP_medCategoryCount'));
+
+
+
     }
 }
