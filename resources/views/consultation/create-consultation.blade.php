@@ -164,7 +164,7 @@
                                 <div class="form-group">
                                     <label for="first_name">BPM/PR: </label>
                                     <input type="text" class="form-control" name="PR" id="PR"
-                                        placeholder="PR" value={{ old('PR') }}PR>
+                                        placeholder="PR" value={{ old('PR') }}>
                                     @error('PR')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
