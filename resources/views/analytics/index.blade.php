@@ -23,26 +23,48 @@
         </div>
     @endif
 
-    <div class="row p-2">
-        <div class="col col-sm-6">
-            <div class="row">
-                <div class="col-md-12 m-1 p-2">
-                    <canvas id="medCountGivenForPastSevenDays" class="border border-primary p-2"></canvas>
-                </div>
-                <div class="col-md-12 m-1 p-2">
-                    <canvas id="patientCountsByBrgy" class="border border-primary p-2"></canvas>
-                </div>
-            </div>
+    <h5 class="text-center text-primary mt-5">Analytics for this Month</h5>
+    <div class="row mb-3">
+        <div class="col-sm">
+            <canvas id="patientCountsByBrgys" class="border border-primary p-2"></canvas>
         </div>
-        <div class="col col-sm-6">
-            <div class="row">
-                <div class="col-md-12 m-1 p-2">
-                    <canvas id="treatmentCountForPastSevenDays" class="border border-primary p-2"></canvas>
-                </div>
-                <div class="col-md-12 m-1 p-2">
-                    <canvas id="medCountByCategory" class="border border-primary p-2"></canvas>
-                </div>
-            </div>
+        <div class="col-sm">
+            <canvas id="consultationCountsByBrgy" class="border border-primary p-2"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="treatmentCountsByBrgy" class="border border-primary p-2"></canvas>
+        </div>
+        <div class="col-sm">
+            <canvas id="medicineGivenCountsByBrgy" class="border border-primary p-2"></canvas>
+        </div>
+    </div>
+
+
+    <h5 class="text-center text-primary mt-5">Analytics about Barangay</h5>
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="numPatientsPerBRGY" class="border border-primary p-2"></canvas>
+        </div>
+        <div class="col-sm">
+            <canvas id="numConsultationPerBRGY" class="border border-primary p-2"></canvas>
+        </div>
+        <div class="col-sm">
+            <canvas id="numGivenMedPerBRGY" class="border border-primary p-2"></canvas>
+        </div>
+    </div>
+
+    <h5 class="text-center text-primary mt-5">Analytics about Medicine</h5>
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="medNumGivenByCategory" class="border border-primary p-2"></canvas>
+        </div>
+        <div class="col-sm">
+            <canvas id="criticalMed" class="border border-primary p-2"></canvas>
+        </div>
+        <div class="col-sm">
+            <canvas id="expiredMed" class="border border-primary p-2"></canvas>
         </div>
     </div>
 
@@ -56,14 +78,15 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        const ctz = document.getElementById('patientCountsByBrgy');
-        new Chart(ctz, {
-            type: 'doughnut',
+        //Analytics about Barangay
+        const numPatientsPerBRGY = document.getElementById('numPatientsPerBRGY');
+        new Chart(numPatientsPerBRGY, {
+            type: 'pie',
             data: {
-                labels: <?php echo json_encode($DL_patientBrgy); ?>,
+                labels: <?php echo json_encode($DL_patientsBrgy); ?>,
                 datasets: [{
-                    label: 'Patients per Barangay',
-                    data: <?php echo json_encode($DP_patientCount); ?>,
+                    label: 'No. of Patients',
+                    data: <?php echo json_encode($DP_patientsBrgyCount); ?>,
                     borderWidth: 1,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -94,26 +117,26 @@
                     },
                     title: {
                         display: true,
-                        text: 'No. of Consultations per Barangay this month'
+                        text: 'No. of Patients per Barangay'
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
 
-                },
+                // },
             }
         });
 
-        const ctx = document.getElementById('treatmentCountForPastSevenDays');
-        new Chart(ctx, {
-            type: 'bar',
+        const numConsultationPerBRGY = document.getElementById('numConsultationPerBRGY');
+        new Chart(numConsultationPerBRGY, {
+            type: 'pie',
             data: {
-                labels: <?php echo json_encode($DL_treatmentDay); ?>,
+                labels: <?php echo json_encode($DL_consultationBrgy); ?>,
                 datasets: [{
-                    label: 'No. of Treatment for the last 7 days',
-                    data: <?php echo json_encode($DP_treatmentCount); ?>,
+                    label: 'No. of Consultation',
+                    data: <?php echo json_encode($DP_consultationBrgyCount); ?>,
                     borderWidth: 1,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -137,24 +160,27 @@
             },
             plugins: [ChartDataLabels],
             options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Consultations per Barangay'
                     }
-
                 }
             }
         });
 
-
-        const cty = document.getElementById('medCountGivenForPastSevenDays');
-        new Chart(cty, {
-            type: 'bar',
+        const numGivenMedPerBRGY = document.getElementById('numGivenMedPerBRGY');
+        new Chart(numGivenMedPerBRGY, {
+            type: 'pie',
             data: {
-                labels: <?php echo json_encode($DL_medGivenDay); ?>,
+                labels: <?php echo json_encode($DL_medicinesBrgy); ?>,
                 datasets: [{
-                    label: 'No. of given medicine for the last 7 days',
-                    data: <?php echo json_encode($DP_medCount); ?>,
+                    label: 'No. of Given Medicines',
+                    data: <?php echo json_encode($DP_medicinesBrgyCount); ?>,
                     borderWidth: 1,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -178,23 +204,33 @@
             },
             plugins: [ChartDataLabels],
             options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Given Medicines per Barangay'
                     }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
 
-                }
+                // },
             }
         });
 
-
-        const ctw = document.getElementById('medCountByCategory');
-        new Chart(ctw, {
+        //Analytics about Medicine
+        const medNumGivenByCategory = document.getElementById('medNumGivenByCategory');
+        new Chart(medNumGivenByCategory, {
             type: 'doughnut',
             data: {
                 labels: <?php echo json_encode($DL_medCategory); ?>,
                 datasets: [{
-                    label: 'No. given medicine by Category',
+                    label: 'No. Given Medicine',
                     data: <?php echo json_encode($DP_medCategoryCount); ?>,
                     borderWidth: 1,
                     backgroundColor: [
@@ -226,15 +262,316 @@
                     },
                     title: {
                         display: true,
-                        text: 'No. of given medicine by category'
+                        text: 'No. of Given Medicine by Category'
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
 
+                // },
+            }
+        });
+
+        const criticalMed = document.getElementById('criticalMed');
+        new Chart(criticalMed, {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($DL_criticalMedicineBrandName); ?>,
+                datasets: [{
+                    label: 'Stocks',
+                    data: <?php echo json_encode($DP_criticalMedicineBrandNameStock); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Critical Medicines'
+                    }
                 },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
+            }
+        });
+
+        const expiredMed = document.getElementById('expiredMed');
+        new Chart(expiredMed, {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($DL_expiMedicineBrandName); ?>,
+                datasets: [{
+                    label: 'Stocks',
+                    data: <?php echo json_encode($DP_expiMedicineBrandNameStock); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Expired Medicines'
+                    }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
+            }
+        });
+
+        //Analytics this Month
+        const treatmentCountsByBrgy = document.getElementById('treatmentCountsByBrgy');
+        new Chart(treatmentCountsByBrgy, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_treatmentBrgy); ?>,
+                datasets: [{
+                    label: 'No. of Treament this Month',
+                    data: <?php echo json_encode($DP_treatmentBrgyCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Treatments per Barangay'
+                    }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
+            }
+        });
+
+        const patientCountsByBrgys = document.getElementById('patientCountsByBrgys');
+        new Chart(patientCountsByBrgys, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_patientBrgy); ?>,
+                datasets: [{
+                    label: 'No. of Patients',
+                    data: <?php echo json_encode($DP_patientBrgyCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Patients per Barangay'
+                    }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
+            }
+        });
+
+        const consultationCountsByBrgy = document.getElementById('consultationCountsByBrgy');
+        new Chart(consultationCountsByBrgy, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_constultationBrgy); ?>,
+                datasets: [{
+                    label: 'No. of Consultation',
+                    data: <?php echo json_encode($DP_constultationBrgyCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Consultation per Barangay'
+                    }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
+            }
+        });
+
+        const medicineGivenCountsByBrgy = document.getElementById('medicineGivenCountsByBrgy');
+        new Chart(medicineGivenCountsByBrgy, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($DL_medicineBrgy); ?>,
+                datasets: [{
+                    label: <?php echo json_encode($DP_medicineBrandNameBrgyCount); ?>,
+                    data: <?php echo json_encode($DP_medicineBrgyCount); ?>,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'No. of Medcine per Barangay'
+                    }
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+
+                // },
             }
         });
     </script>
