@@ -17,22 +17,27 @@ class RolesAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();    
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
         Permission::create(['name' => 'Doctor Permission']);
         Permission::create(['name' => 'Nurse Permission']);
-        
+        Permission::create(['name' => 'Midwife Permission']);
+
         //create role
         $admin_role = Role::create(['name' => 'Admin']);
         $doctor_role = Role::create(['name' => 'Doctor']);
         $nurse_role = Role::create(['name' => 'Nurse']);
+        $midwife_role = Role::create(['name' => 'Midwife']);
 
         //add all permission to role
         $admin_role->givePermissionTo(Permission::all());
+        $admin_role->givePermissionTo(Permission::all());
+        $doctor_role->givePermissionTo('Doctor Permission');
         $doctor_role->givePermissionTo('Doctor Permission');
         $nurse_role->givePermissionTo('Nurse Permission');
-
-
+        $nurse_role->givePermissionTo('Nurse Permission');
+        $midwife_role->givePermissionTo('Midwife Permission');
+        $midwife_role->givePermissionTo('Midwife Permission');
     }
 }

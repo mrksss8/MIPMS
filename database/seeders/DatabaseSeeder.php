@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -21,15 +22,15 @@ class DatabaseSeeder extends Seeder
 
         //user seeder
         DB::table('users')->insert([
-            'name' => 'PMIS-Admin',
+            'name' => 'Bay',
             'last_name' => 'Admin',
-            'email' => 'PMIS-Admin@admin.com',
+            'email' => 'PMIS-Bay@admin.com',
             'password' => Hash::make('password'),
         ]);
 
 
         $user = User::findorfail(1);
-        $user->assignRole('Doctor','Nurse');
+        $user->assignRole('Doctor', 'Nurse', 'Midwife');
 
     }
 }
