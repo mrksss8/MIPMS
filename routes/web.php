@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('patient/create', 'create')->name('patient.create');
             Route::post('patient/store', 'store')->name('patient.store');
             Route::get('patient/show/{id}', 'show')->name('patient.show');
+            Route::get('patient/edit/{id}', 'edit')->name('patient.edit');
+            Route::post('patient/update/{id}', 'update')->name('patient.update');
         }
     );
 });

@@ -19,7 +19,12 @@
         </div>
     @endif
 
-
+    <div class="row px-5 py-2">
+        <div class="col-flex justify-content-end ml-auto">
+            <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-primary btn-md shadow"> <i
+                    class="fas fa-fw fa-pencil-alt"></i></i> Edit Info</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-3">
             <div class="card shadow mb-4">
