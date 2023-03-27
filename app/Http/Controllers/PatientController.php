@@ -164,21 +164,105 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit($id)
     {
-        //
+        $brgys = Barangay::all();
+        $patient = Patient::with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address', 'consultation.treatment.medicine.dosage')->where('id', $id)->first();
+        return view('patient.edit', compact('patient', 'brgys'));
     }
 
-    /**
+    /**w
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, $id)
     {
-        //
+        $patient_validated = $request->validate([
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'birth_date' => 'required',
+            'sex' => 'required',
+            'civil_status' => 'required',
+            'contact_num' => 'numeric',
+        ]);
+
+        $patientAdress_validated = $request->validate([
+            'house_num' => 'required',
+            'street' => 'required',
+            'purok' => 'required',
+            'brgy' => 'required',
+            'muniCity' => 'required',
+            'province' => 'required',
+        ]);
+
+        $InfaChild_validated = $request->validate([
+            'father_name' => 'required',
+            'mother_name' => 'required',
+            'place_delivery' => 'required',
+            'type_of_delivery' => 'required',
+            'attended_by' => 'required',
+            'birth_weight' => 'required',
+            'birth_height' => 'required',
+            'date_of_NBS' => 'required',
+            'mother_TT_status' => 'required',
+            'immun_at_other_facility' => 'required',
+        ]);
+
+        $patientPhil_validated = $request->validate([
+            'category' => 'required',
+            'pin' => 'required',
+            'classification' => 'required',
+        ]);
+
+        $pregWomen_validated = $request->validate([
+            'gradiva' => 'required',
+            'para' => 'required',
+            'LMP' => 'required',
+            'EDC' => 'required',
+            'TT_status' => 'required',
+            'name_of_husband' => 'required',
+        ]);
+
+        $patient = Patient::with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address')->where('id', $id)->first();
+        Patient::findOrFail($id)->update($patient_validated);
+        Address::findOrFail($patient->address_id)->update($patientAdress_validated);
+
+        if ($patient->phil_health_info_id != null) {
+            PhilHealthInfo::findOrFail($patient->phil_health_info_id)->update($patientPhil_validated);
+        } else {
+
+
+            $philHealth = PhilHealthInfo::create($patientPhil_validated);
+
+            $patient->phil_health_info_id = $philHealth->id;
+            $patient->save();
+        }
+
+        if ($patient->infa_child_info_id != null) {
+            InfaChildInfo::findOrFail($patient->infa_child_info_id)->update($InfaChild_validated);
+        } else {
+
+            $infaChild = InfaChildInfo::create($InfaChild_validated);
+
+            $patient->infa_child_info_id = $infaChild->id;
+            $patient->save();
+        }
+
+        if ($patient->preg_women_info_id != null) {
+            PregWomen::findOrFail($patient->preg_women_info_id)->update($pregWomen_validated);
+        } else {
+
+            $pregWomen = PregWomen::create($pregWomen_validated);
+
+            $patient->preg_women_info_id = $pregWomen->id;
+            $patient->save();
+        }
+
+        return redirect()->route('patient.show', $id)->withSuccess('Patient Update successfuly!');
     }
 
     /**
