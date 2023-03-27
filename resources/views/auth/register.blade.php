@@ -48,11 +48,13 @@
                                             <select id="roles" class="form-control" name="roles" placeholder="Roles"
                                                 value="{{ old('roles') }}" required>
 
-                                                <?php $roles = DB::table('roles')->get(); ?>
+                                                <?php $roles = DB::table('roles')
+                                                    ->where('name', '!=', 'Admin')
+                                                    ->get(); ?>
                                                 <option selected disabled>Role</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->id }}">
-                                                        {{ $role->id }}-{{ $role->name }}</option>
+                                                        {{ $role->name }}</option>
                                                 @endforeach
 
                                             </select>
