@@ -40,7 +40,7 @@
                                         </button>
                                     </span>
                                     <input type="text" class="form-control mr-2" name="term"
-                                        placeholder="Search projects" id="term">
+                                        placeholder="Search Patients" id="term">
                                     <a href="{{ route('consultation.create') }}" class=" mt-1">
                                         <span class="input-group-btn">
                                             <button class="btn btn-danger" type="button" title="Refresh page">
