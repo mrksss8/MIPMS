@@ -82,6 +82,28 @@ class TreatmentController extends Controller
                 if ($stocks_sum > $request_med) {
                     $treatment->save();
 
+                    $consultation = Consultation::find($request->consultation_id);
+                    $consultation->treatment_id = $treatment->id;
+                    $consultation->save();
+
+                    if ($request->lab_name != null) {
+
+                        for ($j = 0; $j < count($request->lab_name); $j++) {
+
+                            $lab_des = $request->lab_name[$i] . "_des";
+                            $laboratories = [
+                                [
+                                    'treatment_id' => $treatment->id,
+                                    'lab_name' => $request->lab_name[$j],
+                                    'lab_des' => $request->$lab_des,
+                                    'created_at' => Carbon::now(),
+                                    'updated_at' => Carbon::now(),
+                                ]
+                            ];
+                            Laboratory::insert($laboratories);
+                        }
+                    }
+
                     $medicines = [
                         [
                             'treatment_id' => $treatment->id,

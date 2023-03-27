@@ -22,4 +22,9 @@ class Treatment extends Model
         return $this->hasMany(Laboratory::class, 'treatment_id');
     }
 
+    public function consultation()
+    {
+        return $this->belongsTo(Consultation::class, 'consultation_id');
+    }
+
 }
