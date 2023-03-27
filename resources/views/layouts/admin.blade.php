@@ -241,6 +241,17 @@
                 </li>
             @endcan
 
+            @can('Midwife Permission')
+                <li class="nav-item">
+                    {{-- @if (Route::has('register')) --}}
+                    <a class="nav-link" href="">
+                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <span>Midwife Permission</span>
+                    </a>
+                    {{-- @endif --}}
+                </li>
+            @endcan
+
         </ul>
         <!-- End of Sidebar -->
 
