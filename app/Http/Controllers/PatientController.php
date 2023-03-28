@@ -199,8 +199,6 @@ class PatientController extends Controller
             'province' => 'required',
         ]);
 
-
-
         $patient = Patient::with('infaChildInfo', 'pregWomen', 'philHealthInfo', 'address')->where('id', $id)->first();
         Patient::findOrFail($id)->update($patient_validated);
         Address::findOrFail($patient->address_id)->update($patientAdress_validated);
@@ -216,13 +214,9 @@ class PatientController extends Controller
             PhilHealthInfo::findOrFail($patient->phil_health_info_id)->update($patientPhil_validated);
         } else {
 
-            $patientPhil_validated = $request->validate([
-                'category' => 'required',
-                'pin' => 'required',
-                'classification' => 'required',
-            ]);
 
-            $philHealth = PhilHealthInfo::create($patientPhil_validated);
+
+            $philHealth = PhilHealthInfo::create($request->all());
 
             $patient->phil_health_info_id = $philHealth->id;
             $patient->save();
@@ -245,21 +239,7 @@ class PatientController extends Controller
 
             InfaChildInfo::findOrFail($patient->infa_child_info_id)->update($InfaChild_validated);
         } else {
-
-            $InfaChild_validated = $request->validate([
-                'father_name' => 'required',
-                'mother_name' => 'required',
-                'place_delivery' => 'required',
-                'type_of_delivery' => 'required',
-                'attended_by' => 'required',
-                'birth_weight' => 'required',
-                'birth_height' => 'required',
-                'date_of_NBS' => 'required',
-                'mother_TT_status' => 'required',
-                'immun_at_other_facility' => 'required',
-            ]);
-
-            $infaChild = InfaChildInfo::create($InfaChild_validated);
+            $infaChild = InfaChildInfo::create($request->all());
 
             $patient->infa_child_info_id = $infaChild->id;
             $patient->save();
@@ -279,17 +259,7 @@ class PatientController extends Controller
             PregWomen::findOrFail($patient->preg_women_info_id)->update($pregWomen_validated);
 
         } else {
-
-            $pregWomen_validated = $request->validate([
-                'gradiva' => 'required',
-                'para' => 'required',
-                'LMP' => 'required',
-                'EDC' => 'required',
-                'TT_status' => 'required',
-                'name_of_husband' => 'required',
-            ]);
-
-            $pregWomen = PregWomen::create($pregWomen_validated);
+            $pregWomen = PregWomen::create($request->all());
 
             $patient->preg_women_info_id = $pregWomen->id;
             $patient->save();
