@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -77,6 +77,6 @@ class RegisterController extends Controller
 
         $user->assignRole($data['roles']);
 
-         return Auth::user();
+        return Auth::user();
     }
 }
