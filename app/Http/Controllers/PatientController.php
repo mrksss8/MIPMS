@@ -212,14 +212,6 @@ class PatientController extends Controller
             ]);
 
             PhilHealthInfo::findOrFail($patient->phil_health_info_id)->update($patientPhil_validated);
-        } else {
-
-
-
-            $philHealth = PhilHealthInfo::create($request->all());
-
-            $patient->phil_health_info_id = $philHealth->id;
-            $patient->save();
         }
 
         if ($patient->infa_child_info_id != null) {
@@ -238,11 +230,6 @@ class PatientController extends Controller
             ]);
 
             InfaChildInfo::findOrFail($patient->infa_child_info_id)->update($InfaChild_validated);
-        } else {
-            $infaChild = InfaChildInfo::create($request->all());
-
-            $patient->infa_child_info_id = $infaChild->id;
-            $patient->save();
         }
 
         if ($patient->preg_women_info_id != null) {
@@ -258,11 +245,6 @@ class PatientController extends Controller
 
             PregWomen::findOrFail($patient->preg_women_info_id)->update($pregWomen_validated);
 
-        } else {
-            $pregWomen = PregWomen::create($request->all());
-
-            $patient->preg_women_info_id = $pregWomen->id;
-            $patient->save();
         }
 
         return redirect()->route('patient.show', $id)->withSuccess('Patient Update successfuly!');
