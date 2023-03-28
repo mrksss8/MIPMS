@@ -52,9 +52,9 @@ class DashboardController extends Controller
                 $newborns_Cnt++;
             } elseif ($ageInMonths > 0 && $ageInMonths <= 12) {
                 $infants_Cnt++;
-            } elseif ($ageInMonths > 12 && $ageInMonths <= 216) {
+            } elseif ($ageInMonths > 12 && $ageInMonths <= 144) {
                 $children_Cnt++;
-            } elseif ($ageInMonths > 216 && $ageInMonths <= 204) {
+            } elseif ($ageInMonths > 144 && $ageInMonths <= 204) {
                 $adolescents_Cnt++;
             } elseif ($ageInMonths > 204 && $ageInMonths < 720) {
                 $adults_Cnt++;
