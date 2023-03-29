@@ -141,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
 Route::controller(SearchPatientController::class)->group(function () {
     Route::get('/', 'index')->name('search_patient.index');
     Route::post('/search', 'search')->name('search_patient.search');
+    Route::post('/verify', 'verify')->name('search_patient.verify');
 });
 
 Route::middleware(['auth'])->group(function () {
