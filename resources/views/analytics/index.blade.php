@@ -62,18 +62,18 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-sm">
+            <div class="col-md-6">
                 <canvas id="patientCountsByBrgys" class="border border-primary p-2"></canvas>
             </div>
-            <div class="col-sm">
+            <div class="col-md-6">
                 <canvas id="consultationCountsByBrgy" class="border border-primary p-2"></canvas>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-md-6">
                 <canvas id="treatmentCountsByBrgy" class="border border-primary p-2"></canvas>
             </div>
-            <div class="col-sm">
+            <div class="col-md-6">
                 <canvas id="medicineGivenCountsByBrgy" class="border border-primary p-2"></canvas>
             </div>
         </div>
