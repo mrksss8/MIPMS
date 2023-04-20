@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="MIPMS - BAY MUNICIPAL CLINIC">
-    <meta name="author" content="Mark Bautista">
+    <meta name="author" content="MAB">
 
 
     <!-- CSRF Token -->
@@ -68,17 +68,21 @@
             <!-- Divider -->
             {{-- <hr class="sidebar-divider my-0"> --}}
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ Nav::isRoute('dashboard.index') }}">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Dashboard') }}</span></a>
-            </li>
-            <li class="nav-item {{ Nav::isRoute('analytics.index') }}">
-                <a class="nav-link" href="{{ route('analytics.index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{ __('Analytics') }}</span></a>
-            </li>
+            @hasanyrole('Admin|Doctor|Nurse|Midwife')
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item {{ Nav::isRoute('dashboard.index') }}">
+                    <a class="nav-link" href="{{ route('dashboard.index') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>{{ __('Dashboard') }}</span></a>
+                </li>
+            @endhasanyrole
+            @hasanyrole('Admin|Doctor|Nurse|Midwife')
+                <li class="nav-item {{ Nav::isRoute('analytics.index') }}">
+                    <a class="nav-link" href="{{ route('analytics.index') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>{{ __('Analytics') }}</span></a>
+                </li>
+            @endhasanyrole
 
             <!-- Divider -->
             {{-- <hr class="sidebar-divider"> --}}
@@ -96,112 +100,126 @@
                 </a>
             </li> --}}
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient"
-                    aria-expanded="true" aria-controls="collapsePatient">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Patients</span>
-                </a>
-                <div id="collapsePatient"
-                    class="collapse {{ Request::is('patients') ? 'show' : '' }} {{ Request::is('patient/create') ? 'show' : '' }}"
-                    aria-labelledby="headingPatient" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item {{ Nav::isRoute('patient.index') }}"
-                            href="{{ route('patient.index') }}">Patients Record</a>
-                        <a class="collapse-item {{ Nav::isRoute('patient.create') }}"
-                            href="{{ route('patient.create') }}">Add Patient</a>
+            @unlessrole('Admin')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatient"
+                        aria-expanded="true" aria-controls="collapsePatient">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Patients</span>
+                    </a>
+                    <div id="collapsePatient"
+                        class="collapse {{ Request::is('patients') ? 'show' : '' }} {{ Request::is('patient/create') ? 'show' : '' }}"
+                        aria-labelledby="headingPatient" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                            @hasanyrole('Doctor|Nurse|Midwife')
+                                <a class="collapse-item {{ Nav::isRoute('patient.index') }}"
+                                    href="{{ route('patient.index') }}">Patients Record</a>
+                            @endhasanyrole()
+                            @hasanyrole('Nurse|Midwife')
+                                <a class="collapse-item {{ Nav::isRoute('patient.create') }}"
+                                    href="{{ route('patient.create') }}">Add Patient</a>
+                            @endhasanyrole()
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endunlessrole
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsultation"
-                    aria-expanded="true" aria-controls="collapseConsultation">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Consultations</span>
-                </a>
-                <div id="collapseConsultation"
-                    class="collapse {{ Request::is('consultation/create') ? 'show' : '' }} {{ Request::is('consultation') ? 'show' : '' }}"
-                    aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item {{ Nav::isRoute('consultation.create') }}"
-                            href="{{ route('consultation.create') }}">Add Consultation</a>
+            @hasanyrole('Doctor')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsultation"
+                        aria-expanded="true" aria-controls="collapseConsultation">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Consultations</span>
+                    </a>
+                    <div id="collapseConsultation"
+                        class="collapse {{ Request::is('consultation/create') ? 'show' : '' }} {{ Request::is('consultation') ? 'show' : '' }}"
+                        aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                            <a class="collapse-item {{ Nav::isRoute('consultation.create') }}"
+                                href="{{ route('consultation.create') }}">Add Consultation</a>
 
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endhasanyrole
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatment"
-                    aria-expanded="true" aria-controls="collapseTreatment">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Treatment</span>
-                </a>
-                <div id="collapseTreatment" class="collapse {{ Request::is('treatment/create') ? 'show' : '' }}"
-                    aria-labelledby="headingTreatment" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item {{ Nav::isRoute('treatment.create') }}"
-                            href="{{ route('treatment.create') }}">For Treatment Patients</a>
+            @hasanyrole('Doctor')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatment"
+                        aria-expanded="true" aria-controls="collapseTreatment">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Treatment</span>
+                    </a>
+                    <div id="collapseTreatment" class="collapse {{ Request::is('treatment/create') ? 'show' : '' }}"
+                        aria-labelledby="headingTreatment" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                            <a class="collapse-item {{ Nav::isRoute('treatment.create') }}"
+                                href="{{ route('treatment.create') }}">For Treatment Patients</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endhasanyrole
 
-            <!-- Nav Item - Patient -->
-            <li class="nav-item  {{ Nav::isRoute('past_treatment_consultation.index') }}">
-                <a class="nav-link d-flex align-items-center" href="{{ route('past_treatment_consultation.index') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span class="ml-2">Past Consultation and Treated </span>
-                </a>
+            @hasanyrole('Doctor|Nurse|Midwife')
+                <!-- Nav Item - Patient -->
+                <li class="nav-item  {{ Nav::isRoute('past_treatment_consultation.index') }}">
+                    <a class="nav-link d-flex align-items-center" href="{{ route('past_treatment_consultation.index') }}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span class="ml-2">Past Consultation and Treated </span>
+                    </a>
+                </li>
+            @endhasanyrole
+            @hasanyrole('Nurse|Midwife')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
+                        aria-expanded="true" aria-controls="collapseInventory">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Inventory</span>
+                    </a>
+                    <div id="collapseInventory"
+                        class="collapse  {{ Request::is('medicine') ? 'show' : '' }} {{ Request::is('medicine/create') ? 'show' : '' }} {{ Request::is('medicine-category') ? 'show' : '' }} {{ Request::is('medicine-dosage') ? 'show' : '' }}"
+                        aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                            <a class="collapse-item  {{ Nav::isRoute('medicine.index') }}"
+                                href="{{ route('medicine.index') }}">Medicine List</a>
+                            <a class="collapse-item  {{ Nav::isRoute('medicine.create') }}"
+                                href="{{ route('medicine.create') }}">Add Medicine</a>
+                            <a class="collapse-item  {{ Nav::isRoute('medicine_category.create') }}"
+                                href="{{ route('medicine_category.create') }}">Add Medicine
+                                Category</a>
+                            <a class="collapse-item  {{ Nav::isRoute('medicine_dosage.create') }}"
+                                href="{{ route('medicine_dosage.create') }}">Add Medicine
+                                Dosage</a>
 
-
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
-                    aria-expanded="true" aria-controls="collapseInventory">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Inventory</span>
-                </a>
-                <div id="collapseInventory"
-                    class="collapse  {{ Request::is('medicine') ? 'show' : '' }} {{ Request::is('medicine/create') ? 'show' : '' }} {{ Request::is('medicine-category') ? 'show' : '' }} {{ Request::is('medicine-dosage') ? 'show' : '' }}"
-                    aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item  {{ Nav::isRoute('medicine.index') }}"
-                            href="{{ route('medicine.index') }}">Medicine List</a>
-                        <a class="collapse-item  {{ Nav::isRoute('medicine.create') }}"
-                            href="{{ route('medicine.create') }}">Add Medicine</a>
-                        <a class="collapse-item  {{ Nav::isRoute('medicine_category.create') }}"
-                            href="{{ route('medicine_category.create') }}">Add Medicine
-                            Category</a>
-                        <a class="collapse-item  {{ Nav::isRoute('medicine_dosage.create') }}"
-                            href="{{ route('medicine_dosage.create') }}">Add Medicine
-                            Dosage</a>
-
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endhasanyrole
 
-            <li class="nav-item ">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegister"
-                    aria-expanded="true" aria-controls="collapseRegister">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Register</span>
-                </a>
-                <div id="collapseRegister"
-                    class="collapse  {{ Request::is('brgy') ? 'show' : '' }} {{ Request::is('register') ? 'show' : '' }}"
-                    aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item  {{ Nav::isRoute('register') }}"
-                            href="{{ route('register') }}">Register User</a>
-                        <a class="collapse-item {{ Nav::isRoute('brgy.index') }}"
-                            href="{{ route('brgy.index') }}">Register Barangay</a>
+            @hasanyrole('Admin')
+                <li class="nav-item ">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegister"
+                        aria-expanded="true" aria-controls="collapseRegister">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Register</span>
+                    </a>
+                    <div id="collapseRegister"
+                        class="collapse  {{ Request::is('brgy') ? 'show' : '' }} {{ Request::is('register') ? 'show' : '' }}"
+                        aria-labelledby="headingConsultation" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                            <a class="collapse-item  {{ Nav::isRoute('register') }}"
+                                href="{{ route('register') }}">Register User</a>
+                            <a class="collapse-item {{ Nav::isRoute('brgy.index') }}"
+                                href="{{ route('brgy.index') }}">Register Barangay</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endhasanyrole
 
             {{-- @auth
                 <a href="{{ url('/home') }}">Home</a>
@@ -219,38 +237,38 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            @can('Nurse Permission')
+            {{-- @can('Nurse Permission')
                 <li class="nav-item">
-                    {{-- @if (Route::has('register')) --}}
+
                     <a class="nav-link" href="{{ route('register') }}">
                         <i class="fas fa-fw fa-hands-helping"></i>
                         <span>Nurse Permission</span>
                     </a>
-                    {{-- @endif --}}
+
                 </li>
             @endcan
 
             @can('Doctor Permission')
                 <li class="nav-item">
-                    {{-- @if (Route::has('register')) --}}
+
                     <a class="nav-link" href="">
                         <i class="fas fa-fw fa-hands-helping"></i>
                         <span>Doctor Permission</span>
                     </a>
-                    {{-- @endif --}}
+
                 </li>
             @endcan
 
             @can('Midwife Permission')
                 <li class="nav-item">
-                    {{-- @if (Route::has('register')) --}}
+
                     <a class="nav-link" href="">
                         <i class="fas fa-fw fa-hands-helping"></i>
                         <span>Midwife Permission</span>
                     </a>
-                    {{-- @endif --}}
+
                 </li>
-            @endcan
+            @endcan --}}
 
         </ul>
         <!-- End of Sidebar -->
@@ -456,11 +474,11 @@
                                 </a>
 
                                 <!-- Nav Item - About -->
-                                <a class="dropdown-item" href="{{ route('about') }}">
+                                {{-- <a class="dropdown-item" href="{{ route('about') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('About') }}
 
-                                </a>
+                                </a> --}}
                                 {{-- <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Settings') }}
@@ -498,7 +516,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Laguna University BSIT 4 - 1 ({{ now()->year }})</span>
+                        <span>Copyright &copy; Laguna University BSIT 4 - B7 (2023)</span>
                     </div>
                 </div>
             </footer>

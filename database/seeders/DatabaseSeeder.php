@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
 
         $user = User::findorfail(1);
-        $user->assignRole('Doctor', 'Nurse', 'Midwife');
+        $user->assignRole('admin');
 
     }
 }

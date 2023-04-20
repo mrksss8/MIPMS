@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    // protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
@@ -78,5 +79,10 @@ class RegisterController extends Controller
         $user->assignRole($data['roles']);
 
         return Auth::user();
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        return redirect('/register')->withSuccess('User registered successfully!');
     }
 }

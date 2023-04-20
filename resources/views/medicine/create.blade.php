@@ -118,3 +118,9 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("expi_date")[0].setAttribute('min', today);
+    </script>
+@endsection

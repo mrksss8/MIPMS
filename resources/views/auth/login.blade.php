@@ -8,7 +8,7 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('img/logo.png') }}" alt="logo" width="320px">
+                                <img src="{{ asset('img/logo.png') }}" alt="logo" width="280px">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -40,14 +40,14 @@
                                                 placeholder="{{ __('Password') }}" required>
                                         </div>
 
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" name="remember"
                                                     id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                 <label class="custom-control-label"
                                                     for="remember">{{ __('Remember Me') }}</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -88,8 +88,8 @@
 
                                     @if (Route::has('register'))
                                         <div class="text-center">
-                                            <a class="small"
-                                                href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
+                                            {{-- <a class="small"
+                                                href="{{ route('register') }}">{{ __('Create an Account!') }}</a> --}}
                                         </div>
                                     @endif
                                 </div>

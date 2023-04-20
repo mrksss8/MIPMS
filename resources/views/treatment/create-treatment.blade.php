@@ -254,7 +254,7 @@
                         <br>
                         <br>
 
-                        <div class="p-md-3">
+                        {{-- <div class="p-md-3">
                             <p class="bg-success text-center py-2" style="width: 30%;">Laboaratories</p>
                             @foreach ($lab_list as $lab)
                                 <div class="row py-md-1 my-sm-2">
@@ -276,7 +276,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
+                        </div> --}}
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-md btn-primary"> Save Treatment </button>
                         </div>

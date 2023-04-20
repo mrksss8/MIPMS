@@ -31,7 +31,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $patient_count }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-hospital-user fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $forTreatment_count }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-injured fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -57,29 +57,6 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Number of criticial
-                                medicine
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                        {{ $criticalMedicine_count }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Users -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -98,6 +75,108 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Number of criticial
+                                medicine
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        {{ $criticalMedicine_count }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-medkit fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @hasrole('Admin')
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    {{ $roleNamesAndUserCounts[0]['roleName'] }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ $roleNamesAndUserCounts[0]['userCount'] }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-shield fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    {{ $roleNamesAndUserCounts[1]['roleName'] }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ $roleNamesAndUserCounts[1]['userCount'] }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-md fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    {{ $roleNamesAndUserCounts[2]['roleName'] }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ $roleNamesAndUserCounts[2]['userCount'] }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-nurse fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    {{ $roleNamesAndUserCounts[3]['roleName'] }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ $roleNamesAndUserCounts[3]['userCount'] }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-hospital-user fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endhasrole
     </div>
 
     <div class="row">
@@ -106,6 +185,42 @@
         </div>
         <div class="col-md-8">
             <canvas id="patientAgeCount" class="border border-primary p-2"></canvas>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col-md-12">
+            <div class="card border-primary p-2">
+                <div class="card-header">
+                    <h5 class="text-primary">List of Users</h5>
+                </div>
+                <div class="card-body">
+                    <div style="height: 300px; overflow-y: scroll;">
+                        <table class="table" id="myTable">
+                        <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @forelse ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }} {{ $user->last_name }}
+                                        <td>
+                                            @foreach ($user->roles as $role)
+                                                {{ $role->name }}
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @empty
+                                @endforelse
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

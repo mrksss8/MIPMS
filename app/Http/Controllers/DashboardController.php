@@ -9,10 +9,31 @@ use App\Models\Medicine;
 use App\Models\Treatment;
 use Carbon\Carbon;
 
+use Spatie\Permission\Models\Role;
+use App\Models\User;
+
 class DashboardController extends Controller
 {
     public function index()
     {
+
+        $users = User::with('roles')->get();
+
+        $roleNamesAndUserCounts = array();
+
+        // Get all roles
+        $roles = Role::all();
+        foreach ($roles as $role) {
+            // Get the number of users that belong to this role
+            $userCount = $role->users()->count();
+
+            // Add the role name and user count to the array
+            $roleNamesAndUserCounts[] = array(
+                'roleName' => $role->name,
+                'userCount' => $userCount
+            );
+        }
+
 
         $patient_count = Patient::all()->count();
 
@@ -64,6 +85,6 @@ class DashboardController extends Controller
         }
 
 
-        return view('home', compact('patient_count', 'forTreatment_count', 'criticalMedicine_count', 'treatmentedPatientToday_count', 'patientMaleCount', 'patientFemaleCount', 'newborns_Cnt', 'infants_Cnt', 'adolescents_Cnt', 'children_Cnt', 'adults_Cnt', 'senior_Cnt'));
+        return view('home', compact('roleNamesAndUserCounts', 'patient_count', 'forTreatment_count', 'criticalMedicine_count', 'treatmentedPatientToday_count', 'patientMaleCount', 'patientFemaleCount', 'newborns_Cnt', 'infants_Cnt', 'adolescents_Cnt', 'children_Cnt', 'adults_Cnt', 'senior_Cnt', 'users'));
     }
 }

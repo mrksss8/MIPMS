@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-4">
                             <div class="card-profile-stats">
                                 <span class="heading">22</span>
@@ -63,7 +63,9 @@
                                 <span class="description">Comments</span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+
+
                 </div>
             </div>
 
@@ -128,8 +130,8 @@
                                 <div class="col-lg-4">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="new_password">New password</label>
-                                        <input type="password" id="new_password" class="form-control"
-                                            name="new_password" placeholder="New password">
+                                        <input type="password" id="new_password" class="form-control" name="new_password"
+                                            placeholder="New password">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

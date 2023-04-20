@@ -29,8 +29,9 @@
         <div class="col-lg-3">
             <div class="card shadow mb-4">
                 <div class="card-body text-center">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                        class="rounded-circle img-fluid" style="width: 150px;">
+
+                    <img src="{{ url('storage/patient/' . $patient->image) }}" alt="avatar" class=" img-fluid"
+                        style="width: 150px;">
                     <h5 class="mt-3 mb-0">{{ $patient->last_name }}, {{ $patient->first_name }}</h5>
                     {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
                     <p class="text-muted mb-4">{{ $patient->address->brgy }}, {{ $patient->address->muniCity }}</p>
@@ -138,7 +139,9 @@
                         </div>
                         <div class="col-sm-9">
                             <p class="text-muted mb-0">
-                                {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                {{-- {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }} --}}
+                                {{ \Carbon\Carbon::parse($patient->birth_date)->diffInYears(\Carbon\Carbon::now()) }} years
+                                {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%m months') }}
                             </p>
                         </div>
                     </div>

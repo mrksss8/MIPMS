@@ -12,10 +12,10 @@ class MedicineDosageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
-       
+
     }
 
     /**
@@ -25,7 +25,7 @@ class MedicineDosageController extends Controller
      */
     public function create()
     {
-         return view('medicine_dosage.create');
+        return view('medicine_dosage.create');
     }
 
     /**
@@ -36,7 +36,14 @@ class MedicineDosageController extends Controller
      */
     public function store(Request $request)
     {
-        MedicineDosage::create($request->all());
+
+
+        $validated_request = $request->validate([
+            'dosage' => 'required|unique:medicine_dosages',
+        ], ['dosage.unique' => 'Dosage has already exist']);
+
+
+        MedicineDosage::create($validated_request);
 
         return redirect()->back()->withSuccess('Medicine Dosage added successfuly!');
     }

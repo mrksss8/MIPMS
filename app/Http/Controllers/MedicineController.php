@@ -17,7 +17,7 @@ class MedicineController extends Controller
     public function index()
     {
 
-        $medicines = Medicine::with('category', 'dosage')->where('stocks', '>', 0)->orderBy('id', 'desc')->paginate(15);
+        $medicines = Medicine::with('category', 'dosage')->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->paginate(15);
         return view('medicine.index', compact('medicines'));
     }
 
@@ -28,8 +28,8 @@ class MedicineController extends Controller
      */
     public function create()
     {
-        $categories = MedicineCategory::all();
-        $dosages = MedicineDosage::all();
+        $categories = MedicineCategory::orderBy('category', 'asc')->get();
+        $dosages = MedicineDosage::orderBy('dosage', 'asc')->get();
         return view('medicine.create', compact('categories', 'dosages'));
     }
 
@@ -47,7 +47,7 @@ class MedicineController extends Controller
             'stocks' => 'required',
             'dosage_id' => 'required',
             'category_id' => 'required',
-            'expi_date' => 'required',
+            'expi_date' => 'required|date|after_or_equal:today',
         ]);
 
         $medicine = Medicine::create($validated_request);

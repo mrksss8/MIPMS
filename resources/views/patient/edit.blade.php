@@ -56,16 +56,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="classification">Classification: </label>
-                                <select class="form-control" name="classification" id="classification"
-                                    value={{ $patient->philHealthInfo->classification ?? 'None' }}>
-                                    <option value="none" selected>None</option>
+                                <label for="classification">Classification:</label>
+                                <select class="form-control" name="classification" id="classification">
+                                    <option value="none" {{ $patient->philHealthInfo ? '' : 'selected' }}>None</option>
                                     <option value="member"
-                                        {{ $patient->philHealthInfo->classification ?? 'None' === 'member' ? 'selected' : '' }}>
-                                        Member </option>
+                                        {{ $patient->philHealthInfo && $patient->philHealthInfo->classification === 'member' ? 'selected' : '' }}>
+                                        Member</option>
                                     <option value="dependent"
-                                        {{ $patient->philHealthInfo->classification ?? 'None' === 'dependent' ? 'selected' : '' }}>
-                                        dependent </option>
+                                        {{ $patient->philHealthInfo && $patient->philHealthInfo->classification === 'dependent' ? 'selected' : '' }}>
+                                        Dependent</option>
                                 </select>
                                 @error('classification')
                                     <span class="text-danger">{{ $message }}</span>
@@ -321,151 +320,149 @@
         </div>
 
         <div class="row">
-            @if ($patient->infa_child_info_id != null)
-                <div class="col-6">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <p class="p-1 bg-primary text-center">
-                                <span class="text-white">
-                                    Infants / Child Info
-                                </span>
-                            </p>
 
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Father's Name</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" name="father_name" class="form-control" id="father_name"
-                                        placeholder="Father's Name"
-                                        value={{ $patient->infaChildInfo->father_name ?? 'None' }}>
-                                    @error('father_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">
+            <div class="col-6">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <p class="p-1 bg-primary text-center">
+                            <span class="text-white">
+                                Infants / Child Info
+                            </span>
+                        </p>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Father's Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="father_name" class="form-control" id="father_name"
+                                    placeholder="Father's Name" value={{ $patient->infaChildInfo->father_name ?? ' ' }}>
+                                @error('father_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">
                                     {{ $patient->infaChildInfo->father_name ?? 'None' }}
                                 </p> --}}
-                                </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Mother's Name</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" name="mother_name" class="form-control" id="mother_name"
-                                        placeholder="Mother's Name"
-                                        value={{ $patient->infaChildInfo->mother_name ?? 'None' }}>
-                                    @error('mother_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->mother_name ?? 'None' }}</p> --}}
-                                </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Mother's Name</p>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Place of Delivey</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" name="place_delivery" class="form-control" id="place_delivery"
-                                        placeholder="Place of Delivey"
-                                        value={{ $patient->infaChildInfo->place_delivery ?? 'None' }}>
-                                    @error('place_delivery')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->place_delivery ?? 'None' }}</p> --}}
-                                </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="mother_name" class="form-control" id="mother_name"
+                                    placeholder="Mother's Name" value={{ $patient->infaChildInfo->mother_name ?? ' ' }}>
+                                @error('mother_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->mother_name ?? 'None' }}</p> --}}
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Type of Delivery</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" name="type_of_delivery" class="form-control"
-                                        id="type_of_delivery" placeholder="Type of Delivery"
-                                        value={{ $patient->infaChildInfo->type_of_delivery ?? 'None' }}>
-                                    @error('type_of_delivery')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->type_of_delivery ?? 'None' }} --}}
-                                    </p>
-                                </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Place of Delivey</p>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Attended By</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="attended_by" id="attended_by"
-                                        value={{ $patient->infaChildInfo->attended_by ?? 'None' }}>
+                            <div class="col-sm-8">
+                                <input type="text" name="place_delivery" class="form-control" id="place_delivery"
+                                    placeholder="Place of Delivey"
+                                    value={{ $patient->infaChildInfo->place_delivery ?? ' ' }}>
+                                @error('place_delivery')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->place_delivery ?? 'None' }}</p> --}}
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Type of Delivery</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="type_of_delivery" class="form-control" id="type_of_delivery"
+                                    placeholder="Type of Delivery"
+                                    value={{ $patient->infaChildInfo->type_of_delivery ?? ' ' }}>
+                                @error('type_of_delivery')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->type_of_delivery ?? 'None' }} --}}
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Attended By</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="attended_by" id="attended_by"
+                                    value={{ $patient->infaChildInfo->attended_by ?? 'None' }}>
 
-                                        <option selected disabled>Attended By</option>
-                                        <option value="Nurse"
-                                            {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Nurse' ? 'selected' : '' }}>
-                                            Nurse</option>
-                                        <option value="Doctor"
-                                            {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Doctor' ? 'selected' : '' }}>
-                                            Doctor</option>
-                                        <option value="Midwife"
-                                            {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Midwife' ? 'selected' : '' }}>
-                                            Midwife</option>
+                                    <option selected disabled>Attended By</option>
+                                    <option value="Nurse"
+                                        {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Nurse' ? 'selected' : '' }}>
+                                        Nurse</option>
+                                    <option value="Doctor"
+                                        {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Doctor' ? 'selected' : '' }}>
+                                        Doctor</option>
+                                    <option value="Midwife"
+                                        {{ $patient->infaChildInfo->attended_by ?? 'None' === 'Midwife' ? 'selected' : '' }}>
+                                        Midwife</option>
 
-                                    </select>
-                                    @error('attended_by')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->attended_by ?? 'None' }}</p> --}}
-                                </div>
+                                </select>
+                                @error('attended_by')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->attended_by ?? 'None' }}</p> --}}
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Birth height (CM)</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="number" name="birth_height" class="form-control" id="birth_height"
-                                        placeholder="Birth Height"
-                                        value={{ $patient->infaChildInfo->birth_weight ?? 'None' }}>
-                                    @error('birth_height')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_weight ?? 'None' }} CM
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Birth height (CM)</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="number" name="birth_height" class="form-control" id="birth_height"
+                                    placeholder="Birth Height"
+                                    value={{ $patient->infaChildInfo->birth_weight ?? 'None' }}>
+                                @error('birth_height')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_weight ?? 'None' }} CM
                                 </p> --}}
-                                </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Birth Weight</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="number" name="birth_weight" class="form-control" id="birth_weight"
-                                        placeholder="Birth Weight"
-                                        value={{ $patient->infaChildInfo->birth_height ?? 'None' }}>
-                                    @error('birth_weight')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_height ?? 'None' }} KG
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Birth Weight</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="number" name="birth_weight" class="form-control" id="birth_weight"
+                                    placeholder="Birth Weight"
+                                    value={{ $patient->infaChildInfo->birth_height ?? 'None' }}>
+                                @error('birth_weight')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->birth_height ?? 'None' }} KG
                                 </p> --}}
-                                </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Date of NBS</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="date" name="date_of_NBS" class="form-control" id="date_of_NBS"
-                                        placeholder="Mother TT status"
-                                        value={{ $patient->infaChildInfo->date_of_NBS ?? 'None' }}>
-                                    @error('date_of_NBS')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Date of NBS</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="date" name="date_of_NBS" class="form-control" id="date_of_NBS"
+                                    placeholder="Mother TT status"
+                                    value={{ $patient->infaChildInfo->date_of_NBS ?? 'None' }}>
+                                @error('date_of_NBS')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
 
-                                    {{-- <p>
+                                {{-- <p>
                                     @if (isset($patient->infaChildInfo->date_of_NBS))
                                         {{ \Carbon\Carbon::parse($patient->infaChildInfo->date_of_NBS)->format('F j, Y') }}
                                     @else
@@ -473,61 +470,60 @@
                                     @endif
                                 </p> --}}
 
-                                </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Mother TT Status</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="mother_TT_status" id="mother_TT_status"
-                                        value={{ $patient->infaChildInfo->mother_TT_status ?? 'None' }}>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Mother TT Status</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="mother_TT_status" id="mother_TT_status"
+                                    value={{ $patient->infaChildInfo->mother_TT_status ?? 'None' }}>
 
-                                        <option value="T1"
-                                            {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T1' ? 'selected' : '' }}>
-                                            T1</option>
-                                        <option value="T2"
-                                            {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T2' ? 'selected' : '' }}>
-                                            T2</option>
-                                        <option value="T3"
-                                            {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T3' ? 'selected' : '' }}>
-                                            T3</option>
-                                        <option value="T4"
-                                            {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T4' ? 'selected' : '' }}>
-                                            T4</option>
-                                        <option value="T5"
-                                            {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T5' ? 'selected' : '' }}>
-                                            T5</option>
+                                    <option value="T1"
+                                        {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T1' ? 'selected' : '' }}>
+                                        T1</option>
+                                    <option value="T2"
+                                        {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T2' ? 'selected' : '' }}>
+                                        T2</option>
+                                    <option value="T3"
+                                        {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T3' ? 'selected' : '' }}>
+                                        T3</option>
+                                    <option value="T4"
+                                        {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T4' ? 'selected' : '' }}>
+                                        T4</option>
+                                    <option value="T5"
+                                        {{ $patient->infaChildInfo->mother_TT_status ?? 'None' === 'T5' ? 'selected' : '' }}>
+                                        T5</option>
 
-                                    </select>
-                                    @error('mother_TT_status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->mother_TT_status ?? 'None' }}
+                                </select>
+                                @error('mother_TT_status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">{{ $patient->infaChildInfo->mother_TT_status ?? 'None' }}
                                 </p> --}}
-                                </div>
                             </div>
-                            <hr class="my-2">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p class="mb-0">Immune at other Facilities</p>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" name="immun_at_other_facility" class="form-control"
-                                        id="immun_at_other_facility" placeholder="Immune at other Facilities"
-                                        value={{ $patient->infaChildInfo->immun_at_other_facility ?? 'None' }}>
-                                    @error('immun_at_other_facility')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    {{-- <p class="text-muted mb-0">
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Immune at other Facilities</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="immun_at_other_facility" class="form-control"
+                                    id="immun_at_other_facility" placeholder="Immune at other Facilities"
+                                    value={{ $patient->infaChildInfo->immun_at_other_facility ?? ' ' }}>
+                                @error('immun_at_other_facility')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                {{-- <p class="text-muted mb-0">
                                     {{ $patient->infaChildInfo->immun_at_other_facility ?? 'None' }}</p> --}}
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
+            </div>
 
             @if ($patient->preg_women_info_id != null)
                 <div class="col-6">
@@ -545,7 +541,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <input type="number" class="form-control" name="gradiva"
-                                        id="gradiva"value={{ $patient->pregWomen->gradiva ?? 0 }}>
+                                        id="gradiva"value={{ $patient->pregWomen->gradiva ?? ' ' }}>
                                     @error('gradiva')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -559,7 +555,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <input type="number" class="form-control" name="para" id="para"
-                                        value={{ $patient->pregWomen->para ?? 0 }}>
+                                        value={{ $patient->pregWomen->para ?? ' ' }}>
                                     @error('para')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -573,7 +569,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <input type="date" class="form-control" name="LMP" id="LMP"
-                                        placeholder="LMP" value={{ $patient->pregWomen->LMP ?? 'None' }}>
+                                        placeholder="LMP" value={{ $patient->pregWomen->LMP ?? ' ' }}>
                                     @error('LMP')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -587,7 +583,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <input type="date" class="form-control" name="EDC" id="EDC"
-                                        placeholder="EDC" value={{ $patient->pregWomen->EDC ?? 'None' }}>
+                                        placeholder="EDC" value={{ $patient->pregWomen->EDC ?? ' ' }}>
                                     @error('EDC')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -634,7 +630,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="name_of_husband"
                                         id="name_of_husband" placeholder="Name of Husband"
-                                        value={{ $patient->pregWomen->name_of_husband ?? 'None' }}>
+                                        value={{ $patient->pregWomen->name_of_husband ?? ' ' }}>
                                     @error('name_of_husband')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

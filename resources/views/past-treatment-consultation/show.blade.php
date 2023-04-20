@@ -189,7 +189,8 @@
                                     <div class="form-group">
                                         <label for="quantity">Brand Name: </label>
                                         <input type="text" class="form-control"
-                                            value="  {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}">
+                                            value="  {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}"
+                                            disabled>
 
                                     </div>
                                 </div>
@@ -198,14 +199,14 @@
                                     <div class="form-group">
                                         <label for="quantity">Quantity: </label>
                                         <input type="text" class="form-control"
-                                            value="{{ $medicine->pivot->quantity }}">
+                                            value="{{ $medicine->pivot->quantity }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="description">Description: </label>
                                         <input type="text" class="form-control"
-                                            value="{{ $medicine->pivot->description }}">
+                                            value="{{ $medicine->pivot->description }}" disabled>
                                     </div>
                                 </div>
 

@@ -38,7 +38,11 @@
                                 <div class="form-group">
                                     <label for="category">Category: </label>
                                     <input type="text" class="form-control" name="category" id="category"
-                                        placeholder="Category" required>
+                                        placeholder="Category" required value="{{ old('category') }}">
+
+                                    @error('category')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

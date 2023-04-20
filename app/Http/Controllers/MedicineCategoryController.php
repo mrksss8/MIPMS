@@ -35,7 +35,12 @@ class MedicineCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        MedicineCategory::create($request->all());
+
+        $validated_request = $request->validate([
+            'category' => 'required|unique:medicine_categories',
+        ], ['category.unique' => 'Category has already exist']);
+
+        MedicineCategory::create($validated_request);
 
         return redirect()->back()->withSuccess('Medicine Category added successfuly!');
     }

@@ -57,7 +57,7 @@ class PatientController extends Controller
             'birth_date' => 'required',
             'sex' => 'required',
             'civil_status' => 'required',
-            'contact_num' => 'numeric|digits:11',
+            'contact_num' => ['required', 'regex:/^09\d{9}$/'],
             'house_num' => 'required',
             'street' => 'required',
             'purok' => 'required',
@@ -112,7 +112,23 @@ class PatientController extends Controller
 
         $address = Address::create($request->all());
 
+
+
+
+        //image Request
+        $img = $request->get('image');
+        $folderPath = storage_path("app/public/patient/");
+        $image_parts = explode(";base64,", $img);
+        foreach ($image_parts as $key => $image) {
+            $image_base64 = base64_decode($image);
+        }
+        $fileName = uniqid() . '.png';
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
+
         $patient = new Patient;
+
+        $patient->image = $fileName;
         $patient->last_name = $request->last_name;
         $patient->first_name = $request->first_name;
         $patient->middle_name = $request->middle_name;
@@ -212,6 +228,17 @@ class PatientController extends Controller
             ]);
 
             PhilHealthInfo::findOrFail($patient->phil_health_info_id)->update($patientPhil_validated);
+        } else {
+
+            $patientPhil_validated = $request->validate([
+                'category' => 'required',
+                'pin' => 'required',
+                'classification' => 'required',
+            ]);
+
+            $phil_health = PhilHealthInfo::create($patientPhil_validated);
+            $patient->phil_health_info_id = $phil_health->id;
+            $patient->save();
         }
 
         if ($patient->infa_child_info_id != null) {
@@ -230,6 +257,13 @@ class PatientController extends Controller
             ]);
 
             InfaChildInfo::findOrFail($patient->infa_child_info_id)->update($InfaChild_validated);
+        } else {
+
+            if ($request->father_name != null && $request->mother_name != null && $request->place_delivery != null && $request->attended_by != null) {
+                $infa_child_info = InfaChildInfo::create($request->all());
+                $patient->infa_child_info_id = $infa_child_info->id;
+                $patient->save();
+            }
         }
 
         if ($patient->preg_women_info_id != null) {

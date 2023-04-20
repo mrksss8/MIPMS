@@ -35,6 +35,24 @@
                             Information</p>
 
                         <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="d-flex flex-column align-items-center ">
+                                    <div id="my_camera"></div>
+                                    <div>
+                                        <input type=button class="btn btn-sm btn-primary" value="Capture"
+                                            onClick="take_snapshot()">
+                                    </div>
+                                </div>
+                                <input type="hidden" name="image" class="image-tag">
+                            </div>
+
+                            <div class="col-md-6">
+                                <div id="results">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="last_name">Last Name: </label>
@@ -124,7 +142,8 @@
                                 <div class="form-group">
                                     <label for="contact_num">Contact Number: </label>
                                     <input type="text" name="contact_num" id="contact_num" class="form-control"
-                                        placeholder="Contact Number" value={{ old('contact_num') }}>
+                                        placeholder="Contact Number"
+                                        value={{ old('contact_num') ? old('contact_num') : '09' }}>
                                     @error('contact_num')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -217,8 +236,8 @@
                                         <label for="Other Information (Infants / Child)">
                                             Infants/Child</label>
                                     </div>
-                                    <div>
-                                        <input type="checkbox" name="preg_women" id="preg_women" value="preg_women"
+                                    <div id="preg_women">
+                                        <input type="checkbox" name="preg_women" value="preg_women"
                                             @checked(old('preg_women'))>
                                         <label for="Pregnant Women">Pregnant Women </label>
                                     </div>
@@ -573,5 +592,60 @@
             // $("#preg_women_container").hide();
             // $("#phil_health_info_container").hide();
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#sex').change(function() {
+                if ($(this).val() == 'male') {
+                    $('#preg_women').hide();
+                } else {
+                    $('#preg_women').show();
+                }
+            });
+        });
+    </script>
+
+
+    <!-- webcam setup -->
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#category-img-tag').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#cat_image").change(function() {
+            readURL(this);
+        });
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width: 490,
+            height: 390,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#my_camera');
+
+        function take_snapshot() {
+            Webcam.snap(function(data_uri) {
+                $(".image-tag").val(data_uri);
+                document.getElementById('results').innerHTML =
+                    '<img style = "width:480px; height:auto; padding:20px;" src="' + data_uri + '"/>';
+            });
+        }
     </script>
 @endsection

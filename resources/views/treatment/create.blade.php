@@ -52,11 +52,11 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr>
+                                    {{-- <tr>
                                         <td colspan="100">
                                             <p class="text-center">No Data Found!</p>
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                 @endforelse
 
                             </tbody>
@@ -71,22 +71,23 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
-        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{ asset('datatables/dataTables.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable({
                 dom: 'ft',
-
                 "order": [],
                 "columnDefs": [{
-                    "targets": 'no-sort',
+                    "targets": [0, 1, 2],
                     "orderable": false,
-                }]
+                }],
+                language: {
+                    zeroRecords: ''
+                }
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('datatables/dataTables.js') }}"></script>
 @endsection

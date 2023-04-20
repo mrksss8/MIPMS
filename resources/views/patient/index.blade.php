@@ -59,11 +59,11 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr>
+                                    {{-- <tr>
                                         <td colspan="100">
                                             <p class="text-center">No Data Found!</p>
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                 @endforelse
 
                             </tbody>

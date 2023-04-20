@@ -9,18 +9,33 @@ use App\Models\TreatmentMedicine;
 use App\Models\Patient;
 use App\Models\Medicine;
 use App\Models\Consultation;
+use App\Models\Barangay;
 use Carbon\Carbon;
 
 class AnalyticsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
+        // dd($request->brgy);
+        $brgys = Barangay::all();
 
-        //numPatientsPerBRGY
+        $initialMonth = Carbon::now()->format('m');
+        $month = $request->month;
+        $currentMonth = null;
+        $currentMonth = $currentMonth ?? $month ?? $initialMonth;
+
+
         $patientsByBrgys = Patient::join('addresses', 'patients.address_id', '=', 'addresses.id')
             ->select('addresses.brgy', DB::raw('count(patients.id) as patient_count'))
             ->groupBy('addresses.brgy')->get();
+
+        //numPatientsPerBRGY
+        // $patientsByBrgys = Patient::join('addresses', 'patients.address_id', '=', 'addresses.id')
+        //     ->select('addresses.brgy', DB::raw('COUNT(DISTINCT patients.id) AS patient_count'))
+        //     ->groupBy('addresses.brgy')
+        //     ->get();
+
 
         if ($patientsByBrgys->isNotEmpty()) {
             foreach ($patientsByBrgys as $patientsByBrgy) {
@@ -50,13 +65,22 @@ class AnalyticsController extends Controller
         }
 
         //numGivenMedPerBRGY
-        $medicinesByBrgys = Medicine::select('addresses.brgy', 'medicines.brand_name', DB::raw('sum(treatment_medicines.quantity) as total_quantity'))
+        // $medicinesByBrgys = Medicine::select('addresses.brgy', 'medicines.brand_name', DB::raw('sum(treatment_medicines.quantity) as total_quantity'))
+        //     ->join('treatment_medicines', 'medicines.id', '=', 'treatment_medicines.medicine_id')
+        //     ->join('treatments', 'treatment_medicines.treatment_id', '=', 'treatments.id')
+        //     ->join('consultations', 'treatments.id', '=', 'consultations.treatment_id')
+        //     ->join('patients', 'consultations.patient_id', '=', 'patients.id')
+        //     ->join('addresses', 'patients.address_id', '=', 'addresses.id')
+        //     ->groupBy('addresses.brgy', 'medicines.brand_name')->get();
+
+        $medicinesByBrgys = Medicine::select('addresses.brgy', 'medicines.brand_name', DB::raw('SUM(treatment_medicines.quantity) AS total_quantity'))
             ->join('treatment_medicines', 'medicines.id', '=', 'treatment_medicines.medicine_id')
             ->join('treatments', 'treatment_medicines.treatment_id', '=', 'treatments.id')
             ->join('consultations', 'treatments.id', '=', 'consultations.treatment_id')
             ->join('patients', 'consultations.patient_id', '=', 'patients.id')
             ->join('addresses', 'patients.address_id', '=', 'addresses.id')
-            ->groupBy('addresses.brgy', 'medicines.brand_name')->get();
+            ->groupBy('addresses.brgy')->get();
+
 
         if ($medicinesByBrgys->isNotEmpty()) {
             foreach ($medicinesByBrgys as $medicinesByBrgy) {
@@ -117,13 +141,44 @@ class AnalyticsController extends Controller
             $DL_expiMedicineBrandName[] = null;
             $DP_expiMedicineBrandNameStock[] = null;
         }
+        //To expiredMed    
+        $toexpiredMedicines = DB::table('medicines')
+            ->select('brand_name', DB::raw('SUM(stocks) as total_stocks'), 'med_id', 'expi_date')
+            ->where('expi_date', '>', Carbon::today())
+            ->where('expi_date', '<=', Carbon::today()->addMonth())
+            ->groupBy('med_id')
+            ->get();
+
+        if ($toexpiredMedicines->isNotEmpty()) {
+            foreach ($toexpiredMedicines as $toexpiredMedicine) {
+                $DL_toexpiMedicineBrandName[] = $toexpiredMedicine->brand_name;
+                $DP_toexpiMedicineBrandNameStock[] = $toexpiredMedicine->total_stocks;
+            }
+        } else {
+            $DL_toexpiMedicineBrandName[] = null;
+            $DP_toexpiMedicineBrandNameStock[] = null;
+        }
 
         //patientSexCount
         $patientMaleCount = Patient::where('sex', 'male')->count();
         $patientFemaleCount = Patient::where('sex', 'female')->count();
 
-        $currentMonth = Carbon::now()->format('m'); // get current month
 
+
+
+        $now = Carbon::now(); // get current datetime
+        $past_months = []; // create empty array to store past months
+
+        $now = Carbon::now(); // get current datetime
+        $past_months = []; // create empty array to store past months
+
+        for ($i = 1; $i <= $now->month; $i++) {
+            // subtract i months from current datetime
+            $past_month = $now->copy()->subMonths($i - 1);
+            $past_month_number = $past_month->format('m'); // get month number
+            $past_month_name = $past_month->format('F'); // get month name
+            $past_months[$past_month_number] = $past_month_name; // add month number and name to array
+        }
 
         //treatmentCountsByBrgys
         $treatmentCountsByBrgys = Treatment::whereHas('consultation.patient.address', function ($query) {
@@ -151,7 +206,7 @@ class AnalyticsController extends Controller
         //patientCountsByBrgys
         $patientCountsByBrgys = Patient::join('addresses', 'patients.address_id', '=', 'addresses.id')
             ->select('addresses.brgy', DB::raw('COUNT(patients.id) as patient_count'))
-            ->whereMonth('patients.created_at', '=', date('m'))
+            ->whereMonth('patients.created_at', '=', $currentMonth)
             ->groupBy('addresses.brgy')
             ->get();
 
@@ -169,7 +224,7 @@ class AnalyticsController extends Controller
         $consultationCountsByBrgys = Consultation::select('addresses.brgy', DB::raw('COUNT(consultations.id) as consultation_count'))
             ->join('patients', 'consultations.patient_id', '=', 'patients.id')
             ->join('addresses', 'patients.address_id', '=', 'addresses.id')
-            ->whereMonth('consultations.created_at', '=', date('m'))
+            ->whereMonth('consultations.created_at', '=', $currentMonth)
             ->groupBy('addresses.brgy')
             ->get();
 
@@ -189,7 +244,8 @@ class AnalyticsController extends Controller
             ->join('consultations', 'treatments.consultation_id', '=', 'consultations.id')
             ->join('patients', 'consultations.patient_id', '=', 'patients.id')
             ->join('addresses', 'patients.address_id', '=', 'addresses.id')
-            ->groupBy('medicines.id', 'addresses.brgy')
+            ->whereMonth('treatment_medicines.created_at', '=', $currentMonth)
+            ->groupBy('addresses.brgy')
             ->get();
 
         if ($medicineGivenCountsByBrgys->isNotEmpty()) {
@@ -204,8 +260,69 @@ class AnalyticsController extends Controller
             $DP_medicineBrandNameBrgyCount[] = null;
         }
 
+        $medicinesByBrgy = DB::table('treatment_medicines')
+            ->join('medicines', 'treatment_medicines.medicine_id', '=', 'medicines.id')
+            ->join('treatments', 'treatment_medicines.treatment_id', '=', 'treatments.id')
+            ->join('consultations', 'treatments.consultation_id', '=', 'consultations.id')
+            ->join('patients', 'consultations.patient_id', '=', 'patients.id')
+            ->join('addresses', 'patients.address_id', '=', 'addresses.id')
+            ->select('medicines.brand_name', 'addresses.brgy', DB::raw('SUM(treatment_medicines.quantity) as total_quantity'))
+            ->where('addresses.brgy', '=', $request->brgy)
+            ->groupBy('medicines.brand_name', 'addresses.brgy')
+            ->get();
+
+        $currentBrgy = $request->brgy;
 
 
-        return view('analytics.index', compact('DL_patientsBrgy', 'DP_patientsBrgyCount', 'DL_consultationBrgy', 'DP_consultationBrgyCount', 'DL_medicinesBrgy', 'DP_medicinesBrgyCount', 'DL_medCategory', 'DP_medCategoryCount', 'DL_criticalMedicineBrandName', 'DP_criticalMedicineBrandNameStock', 'DL_expiMedicineBrandName', 'DP_expiMedicineBrandNameStock', 'patientMaleCount', 'patientFemaleCount', 'DL_treatmentBrgy', 'DP_treatmentBrgyCount', 'DL_patientBrgy', 'DP_patientBrgyCount', 'DL_constultationBrgy', 'DP_constultationBrgyCount', 'DL_medicineBrgy', 'DP_medicineBrandNameBrgyCount', 'DP_medicineBrgyCount'));
+        if ($medicinesByBrgy->isNotEmpty()) {
+            foreach ($medicinesByBrgy as $medicineByBrgy) {
+                $DL_medicineBrand_name[] = $medicineByBrgy->brand_name;
+                $DP_medicineTotal_quantity[] = $medicineByBrgy->total_quantity;
+                $DP_brgy[] = $medicineByBrgy->brgy;
+            }
+        } else {
+            $DL_medicineBrand_name[] = null;
+            $DP_medicineTotal_quantity[] = null;
+            $DP_brgy[] = null;
+        }
+
+        return view(
+            'analytics.index',
+            compact(
+                'DL_patientsBrgy',
+                'DP_patientsBrgyCount',
+                'DL_consultationBrgy',
+                'DP_consultationBrgyCount',
+                'DL_medicinesBrgy',
+                'DP_medicinesBrgyCount',
+                'DL_medCategory',
+                'DP_medCategoryCount',
+                'DL_criticalMedicineBrandName',
+                'DP_criticalMedicineBrandNameStock',
+                'DL_expiMedicineBrandName',
+                'DP_expiMedicineBrandNameStock',
+                'patientMaleCount',
+                'patientFemaleCount',
+                'DL_treatmentBrgy',
+                'DP_treatmentBrgyCount',
+                'DL_patientBrgy',
+                'DP_patientBrgyCount',
+                'DL_constultationBrgy',
+                'DP_constultationBrgyCount',
+                'DL_medicineBrgy',
+                'DP_medicineBrandNameBrgyCount',
+                'DP_medicineBrgyCount',
+                'past_months',
+                'currentMonth',
+                'toexpiredMedicines',
+                'DL_toexpiMedicineBrandName',
+                'DP_toexpiMedicineBrandNameStock',
+                'DL_medicineBrand_name',
+                'DP_medicineTotal_quantity',
+                'DP_brgy',
+                'brgys',
+                'currentBrgy'
+            )
+        );
     }
 }
