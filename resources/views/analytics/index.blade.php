@@ -24,8 +24,8 @@
     @endif
 
     <div class="card shadow-lg p-3">
-        <h4 class="text-center text-primary">Analytics for month of
 
+        <h4 class="text-center text-primary">Analytics for month of
             {{ match ($currentMonth) {
                 '01' => 'January',
                 '02' => 'February',
@@ -42,6 +42,7 @@
                 default => 'Unknown month',
             } }}
         </h4>
+
         <div class="row">
             <div class="col-md-12 d-flex align-items-center justify-content-center">
                 <div class="form-group">
