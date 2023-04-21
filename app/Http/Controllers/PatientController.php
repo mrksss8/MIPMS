@@ -24,7 +24,7 @@ class PatientController extends Controller
 
         // dd(Patient::with('consultation')->get());
 
-        $patients = Patient::with('consultation', 'infaChildInfo', 'pregWomen', 'philHealthInfo')->orderBy('id', 'desc')->paginate(5);
+        $patients = Patient::with('consultation', 'infaChildInfo', 'pregWomen', 'philHealthInfo')->orderBy('id', 'desc')->paginate(10);
 
         return view('patient.index', compact('patients'));
     }
@@ -51,9 +51,10 @@ class PatientController extends Controller
     {
 
         $request->validate([
-            'last_name' => 'required',
-            'first_name' => 'required',
-            'middle_name' => 'required',
+
+            'last_name' => 'required|regex:/^[A-Za-z\s]+$/',
+            'first_name' => 'required|regex:/^[A-Za-z\s]+$/',
+            'middle_name' => 'regex:/^[A-Za-z\s]+$/',
             'birth_date' => 'required',
             'sex' => 'required',
             'civil_status' => 'required',
@@ -64,6 +65,7 @@ class PatientController extends Controller
             'brgy' => 'required',
             'muniCity' => 'required',
             'province' => 'required',
+            'image' => 'required',
 
         ]);
 
@@ -268,17 +270,21 @@ class PatientController extends Controller
 
         if ($patient->preg_women_info_id != null) {
 
-            $pregWomen_validated = $request->validate([
-                'gradiva' => 'required',
-                'para' => 'required',
-                'LMP' => 'required',
-                'EDC' => 'required',
-                'TT_status' => 'required',
-                'name_of_husband' => 'required',
-            ]);
+            // $pregWomen_validated = $request->validate([
+            //     'gradiva' => 'required',
+            //     'para' => 'required',
+            //     'LMP' => 'required',
+            //     'EDC' => 'required',
+            //     'TT_status' => 'required',
+            //     'name_of_husband' => 'required',
+            // ]);
 
-            PregWomen::findOrFail($patient->preg_women_info_id)->update($pregWomen_validated);
+            PregWomen::findOrFail($patient->preg_women_info_id)->update($request->all());
 
+        } else {
+            $preg_woman = PregWomen::create($request->all());
+            $patient->preg_women_info_id = $preg_woman->id;
+            $patient->save();
         }
 
         return redirect()->route('patient.show', $id)->withSuccess('Patient Update successfuly!');

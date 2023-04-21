@@ -16,7 +16,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-      
+
     }
 
     /**
@@ -27,19 +27,19 @@ class ConsultationController extends Controller
     public function create(Request $request)
     {
         $patients = Patient::query()
-        ->where('last_name', 'LIKE', "%{$request->term}%") 
-        ->orWhere('first_name', 'LIKE', "%{$request->term}%") 
-        ->orWhere('middle_name', 'LIKE', "%{$request->term}%") 
-        
-        ->orderBy('id','desc')->paginate(5);
+            ->where('last_name', 'LIKE', "%{$request->term}%")
+            ->orWhere('first_name', 'LIKE', "%{$request->term}%")
+            ->orWhere('middle_name', 'LIKE', "%{$request->term}%")
 
-        return view('consultation.create',compact('patients'));
+            ->orderBy('id', 'desc')->paginate(10);
+
+        return view('consultation.create', compact('patients'));
     }
 
     public function create_consultation($id)
     {
         $patient = Patient::findOrFail($id);
-        return view('consultation.create-consultation',compact('patient'));
+        return view('consultation.create-consultation', compact('patient'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ConsultationController extends Controller
     public function store(Request $request)
     {
 
-         $request->validate([
+        $request->validate([
             'date' => 'required|date|after_or_equal:today',
             'weight' => 'required',
             'height' => 'required',
@@ -60,10 +60,11 @@ class ConsultationController extends Controller
             'RR' => 'required',
             'CC' => 'required',
             'patient_id' => 'required',
-          
+
         ]);
         Consultation::create($request->all());
-        return redirect()->route('consultation.create')->withSuccess('Consultation added successfully.');;
+        return redirect()->route('consultation.create')->withSuccess('Consultation added successfully.');
+        ;
     }
 
     /**
@@ -75,7 +76,7 @@ class ConsultationController extends Controller
     public function show()
     {
 
-     
+
     }
 
     /**

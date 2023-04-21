@@ -55,19 +55,21 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <select id="roles" class="form-control" name="roles" placeholder="Roles"
-                                                value="{{ old('roles') }}" required>
+                                            <select id="roles" class="form-control" name="role" placeholder="Role"
+                                                value="{{ old('role') }}" required>
 
                                                 <?php $roles = DB::table('roles')
                                                     ->where('name', '!=', 'Admin')
                                                     ->get(); ?>
+
                                                 <option selected disabled>Role</option>
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">
+                                                    <option value="{{ $role->id }}"
+                                                        {{ $role->id == old('role') ? 'selected' : '' }}>
                                                         {{ $role->name }}</option>
                                                 @endforeach
-
                                             </select>
+
                                         </div>
 
                                         <div class="form-group">

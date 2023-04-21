@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label for="brand_name">Brand Name: </label>
                                     <input type="text" class="form-control" name="brand_name" id="brand_name"
-                                        placeholder="Brand Name" required value={{ old('brand_name') }}>
+                                        placeholder="Brand Name" required value="{{ old('brand_name') }}">
                                     @error('brand_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <label for="stocks">Stocks: </label>
                                     <input type="number" class="form-control" name="stocks" id="stocks"
-                                        placeholder="stocks" required value={{ old('stocks') }}>
+                                        placeholder="stocks" required value="{{ old('stocks') }}">
                                     @error('stocks')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label for="expi_date">expiration date: </label>
                                     <input type="date" class="form-control" name="expi_date" id="expi_date"
-                                        placeholder="expi_date" required value={{ old('expi_date') }}>
+                                        placeholder="expi_date" required value="{{ old('expi_date') }}">
                                     @error('expi_date')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

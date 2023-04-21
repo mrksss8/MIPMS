@@ -202,7 +202,7 @@
                 <div class="card-body">
                     <form action="{{ route('treatment.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="consultation_id" value={{ $consultation->id }}>
+                        <input type="hidden" name="consultation_id" value="{{ $consultation->id }}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

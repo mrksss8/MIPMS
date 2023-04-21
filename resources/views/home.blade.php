@@ -187,42 +187,45 @@
             <canvas id="patientAgeCount" class="border border-primary p-2"></canvas>
         </div>
     </div>
-    <div class="row d-flex justify-content-center mt-4">
-        <div class="col-md-12">
-            <div class="card border-primary p-2">
-                <div class="card-header">
-                    <h5 class="text-primary">List of Users</h5>
-                </div>
-                <div class="card-body">
-                    <div style="height: 300px; overflow-y: scroll;">
-                        <table class="table" id="myTable">
-                        <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Role</th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                                @forelse ($users as $user)
+    @hasrole('Admin')
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-md-12">
+                <div class="card border-primary p-2">
+                    <div class="card-header">
+                        <h5 class="text-primary">List of Users</h5>
+                    </div>
+                    <div class="card-body">
+                        <div style="height: 300px; overflow-y: scroll;">
+                            <table class="table" id="myTable">
+                                <thead>
                                     <tr>
-                                        <td>{{ $user->name }} {{ $user->last_name }}
-                                        <td>
-                                            @foreach ($user->roles as $role)
-                                                {{ $role->name }}
-                                            @endforeach
-                                        </td>
+                                        <th>User</th>
+                                        <th>Role</th>
                                     </tr>
-                                @empty
-                                @endforelse
+                                </thead>
+                                <tbody>
 
-                            </tbody>
-                        </table>
+                                    @forelse ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->name }} {{ $user->last_name }}
+                                            <td>
+                                                @foreach ($user->roles as $role)
+                                                    {{ $role->name }}
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @empty
+                                    @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endhasrole
 @endsection
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

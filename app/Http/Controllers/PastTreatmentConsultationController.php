@@ -10,7 +10,7 @@ class PastTreatmentConsultationController extends Controller
 {
     public function index()
     {
-        $consultations = Consultation::with('patient')->orderBy('id', 'desc')->paginate(5);
+        $consultations = Consultation::with('patient')->orderBy('date', 'asc')->paginate(10);
         return view('past-treatment-consultation.index', compact('consultations'));
     }
 

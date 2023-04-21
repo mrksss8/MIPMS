@@ -53,7 +53,8 @@
                             <tbody>
 
                                 @forelse ($medicines as $medicine)
-                                    <tr>
+                                    <tr @if ($medicine->expi_date <= \Carbon\Carbon::now()) class="text-danger" @elseif (\Carbon\Carbon::parse($medicine->expi_date)->lte(\Carbon\Carbon::now()->addMonths(1))) class="text-warning" @endif
+                                        @if ($medicine->stocks <= 10) style = "color:#be4d25" @endif>
                                         <td>{{ $medicine->category->category }}</td>
                                         <td>{{ $medicine->brand_name }}</td>
                                         <td>{{ $medicine->dosage->dosage }}</td>
@@ -79,6 +80,11 @@
                         </table>
                         <div class="card-footer">
                             {{ $medicines->onEachSide(2)->links() }}
+                        </div>
+                        <div class="card-footer">
+                            <p class="text-danger">Red Text indicated medicine is expired</p>
+                            <p class="text-warning">Yellow Text indicated medicine will be expired in 1 month</p>
+                            <p style="color:#be4d25">Orange Text indicated medicine stock is below 10</p>
                         </div>
                     </div>
                 </div>

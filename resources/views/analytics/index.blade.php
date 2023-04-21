@@ -84,19 +84,18 @@
     <div class="card shadow-lg p-3 mt-3">
         <h4 class="text-center text-primary p-1">Analytics about Barangay</h4>
         <div class="row mb-3 d-flex justify-content-center">
-            <div class="col-md-5">
-                <canvas id="numPatientsPerBRGY" class="border border-primary p-2"></canvas>
+            <div class="col-md-5 border border-primary mr-3">
+                <canvas id="numPatientsPerBRGY" class="p-2"></canvas>
             </div>
-            <div class="col-md-5">
-                <canvas id="numConsultationPerBRGY" class="border border-primary p-2"></canvas>
+            <div class="col-md-5 border border-primary">
+                <canvas id="numConsultationPerBRGY" class=" p-2"></canvas>
             </div>
         </div>
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5">
-                <canvas id="numGivenMedPerBRGY" class="border border-primary p-2"></canvas>
+            <div class="col-md-5 border border-primary mr-3">
+                <canvas id="numGivenMedPerBRGY" class="p-2"></canvas>
             </div>
             <div class="col-md-5 border border-primary">
-
                 <form action="{{ route('analytics.index') }}" method="GET"
                     class="d-flex align-items-center justify-content-center pt-3">
                     @csrf
@@ -740,30 +739,5 @@
                     // },
                 }
             });
-        </script>
-
-        //
-        <script>
-            //     $(document).ready(function() {
-            //         $('#month').change(function() {
-            //             var selectedValue = $(this).val();
-            //             console.log(selectedValue);
-            //             $.ajax({
-            //                 url: '{{ route('analytics.index') }}',
-            //                 type: 'GET',
-            //                 data: {
-            //                     selectedValue: selectedValue
-            //                 },
-            //                 dataType: 'json',
-            //                 success: function(response) {
-            //                     console.log(response);
-            //                 },
-            //                 error: function(xhr, status, error) {
-            //                     console.error(xhr.responseText);
-            //                 }
-            //             });
-            //         });
-            //     });
-            // 
         </script>
     @endsection

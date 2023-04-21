@@ -31,7 +31,7 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        $for_treatments = Consultation::with('patient')->where('treatment_id', null)->orderBy('id', 'desc')->paginate(5);
+        $for_treatments = Consultation::with('patient')->where('treatment_id', null)->orderBy('date', 'desc')->paginate(5);
         return view('treatment.create', compact('for_treatments'));
     }
 

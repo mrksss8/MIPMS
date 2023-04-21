@@ -45,7 +45,7 @@ class LoginController extends Controller
         $user = Auth::user(); // Get the currently logged in user
         $role = $user->roles()->pluck('name')->first(); // Get the role of the user
 
-        session()->flash('success', 'Welcome back ' . $user->name . ' you been successfully log in as' . $role);
+        session()->flash('success', 'Welcome back ' . $user->name . ' ' . $user->last_name . ' you been successfully log in as ' . $role);
         return $this->redirectTo;
     }
 }

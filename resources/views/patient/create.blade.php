@@ -48,7 +48,9 @@
 
                             <div class="col-md-6">
                                 <div id="results">
-
+                                    @error('image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -57,7 +59,7 @@
                                 <div class="form-group">
                                     <label for="last_name">Last Name: </label>
                                     <input type="text" class="form-control" name="last_name" id="last_name"
-                                        placeholder="Last Name" value={{ old('last_name') }}>
+                                        placeholder="Last Name" value="{{ old('last_name') }}">
                                     @error('last_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -67,7 +69,7 @@
                                 <div class="form-group">
                                     <label for="first_name">First Name: </label>
                                     <input type="text" class="form-control" name="first_name" id="first_name"
-                                        placeholder="First Name" value={{ old('first_name') }}>
+                                        placeholder="First Name" value="{{ old('first_name') }}">
                                     @error('first_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -77,7 +79,7 @@
                                 <div class="form-group">
                                     <label for="middle_name">Middle Name: </label>
                                     <input type="text" class="form-control" name="middle_name" id="middle_name"
-                                        placeholder="Middle Name" value={{ old('middle_name') }}>
+                                        placeholder="Middle Name" value="{{ old('middle_name') }}">
                                     @error('middle_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -90,7 +92,7 @@
                                 <div class="form-group">
                                     <label for="birth_date">Birth Date: </label>
                                     <input type="date" class="form-control" name="birth_date" id="birth_date"
-                                        placeholder="Birthdate" value={{ old('birth_date') }}>
+                                        placeholder="Birthdate" value="{{ old('birth_date') }}">
                                     @error('birth_date')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -143,7 +145,7 @@
                                     <label for="contact_num">Contact Number: </label>
                                     <input type="text" name="contact_num" id="contact_num" class="form-control"
                                         placeholder="Contact Number"
-                                        value={{ old('contact_num') ? old('contact_num') : '09' }}>
+                                        value="{{ old('contact_num') ? old('contact_num') : '09' }}">
                                     @error('contact_num')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -157,7 +159,7 @@
                                 <div class="form-group">
                                     <label for="house_num">House Number: </label>
                                     <input type="text" class="form-control" name="house_num" id="house_num"
-                                        placeholder="House Number" value={{ old('house_num') }}>
+                                        placeholder="House Number" value="{{ old('house_num') }}">
                                     @error('house_num')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -167,7 +169,7 @@
                                 <div class="form-group">
                                     <label for="street">Street: </label>
                                     <input type="text" class="form-control" name="street" id="street"
-                                        placeholder="Street" value={{ old('street') }}>
+                                        placeholder="Street" value="{{ old('street') }}">
                                     @error('street')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -177,7 +179,7 @@
                                 <div class="form-group">
                                     <label for="purok">Purok: </label>
                                     <input type="text" class="form-control" name="purok" id="purok"
-                                        placeholder="Purok" value={{ old('purok') }}>
+                                        placeholder="Purok" value="{{ old('purok') }}">
                                     @error('purok')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -206,7 +208,7 @@
                                 <div class="form-group">
                                     <label for="muniCity">Municipality/City: </label>
                                     <input type="text" class="form-control" name="muniCity" id="muniCity"
-                                        placeholder="Municipality/City" value={{ old('muniCity') }}>
+                                        placeholder="Municipality/City" value="{{ old('muniCity') }}">
                                     @error('muniCity')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -216,7 +218,7 @@
                                 <div class="form-group">
                                     <label for="province">Province: </label>
                                     <input type="text" class="form-control" name="province" id="province"
-                                        placeholder="province" value={{ old('province') }}>
+                                        placeholder="province" value="{{ old('province') }}">
                                     @error('province')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -259,7 +261,7 @@
                                     <div class="form-group">
                                         <label for="father_name">Father's Name: </label>
                                         <input type="text" name="father_name" class="form-control" id="father_name"
-                                            placeholder="Father's Name" value={{ old('father_name') }}>
+                                            placeholder="Father's Name" value="{{ old('father_name') }}">
                                         @error('father_name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -269,7 +271,7 @@
                                     <div class="form-group">
                                         <label for="mother_name">Mother's Name: </label>
                                         <input type="text" name="mother_name" class="form-control" id="mother_name"
-                                            placeholder="Mother's Name" value={{ old('mother_name') }}>
+                                            placeholder="Mother's Name" value="{{ old('mother_name') }}">
                                         @error('mother_name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -282,7 +284,7 @@
                                         <label for="place_delivery">Place of Delivey: </label>
                                         <input type="text" name="place_delivery" class="form-control"
                                             id="place_delivery" placeholder="Place of Delivey"
-                                            value={{ old('place_delivery') }}>
+                                            value="{{ old('place_delivery') }}">
                                         @error('place_delivery')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -293,7 +295,7 @@
                                         <label for="type_of_delivery">Type of Delivery: </label>
                                         <input type="text" name="type_of_delivery" class="form-control"
                                             id="type_of_delivery" placeholder="Type of Delivery"
-                                            value={{ old('type_of_delivery') }}>
+                                            value="{{ old('type_of_delivery') }}">
                                         @error('type_of_delivery')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -303,7 +305,7 @@
                                     <div class="form-group">
                                         <label for="attended_by">Attended By: </label>
                                         <select class="form-control" name="attended_by" id="attended_by"
-                                            value={{ old('attended_by') }}>
+                                            value="{{ old('attended_by') }}">
 
                                             <option selected disabled>Attended By</option>
                                             <option value="Nurse" {{ old('attended_by') == 'Nurse' ? 'selected' : '' }}>
@@ -327,7 +329,7 @@
                                     <div class="form-group">
                                         <label for="birth_weight">Birth Weight (KG): </label>
                                         <input type="number" name="birth_weight" class="form-control" id="birth_weight"
-                                            placeholder="Birth Weight" value={{ old('birth_weight') }}>
+                                            placeholder="Birth Weight" value="{{ old('birth_weight') }}">
                                         @error('birth_weight')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -337,7 +339,7 @@
                                     <div class="form-group">
                                         <label for="birth_height">Birth Height (CM): </label>
                                         <input type="number" name="birth_height" class="form-control" id="birth_height"
-                                            placeholder="Birth Height" value={{ old('birth_height') }}>
+                                            placeholder="Birth Height" value="{{ old('birth_height') }}">
                                         @error('birth_height')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -348,7 +350,7 @@
                                     <div class="form-group">
                                         <label for="date_of_NBS">Date of NBS: </label>
                                         <input type="date" name="date_of_NBS" class="form-control" id="date_of_NBS"
-                                            placeholder="Mother TT status" value={{ old('date_of_NBS') }}>
+                                            placeholder="Mother TT status" value="{{ old('date_of_NBS') }}">
                                         @error('date_of_NBS')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -385,7 +387,7 @@
                                         <label for="immun_at_other_facility">Immune at other Facilities: </label>
                                         <input type="text" name="immun_at_other_facility" class="form-control"
                                             id="immun_at_other_facility" placeholder="Immune at other Facilities"
-                                            value={{ old('immun_at_other_facility') }}>
+                                            value="{{ old('immun_at_other_facility') }}">
                                         @error('immun_at_other_facility')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -402,7 +404,7 @@
                                     <div class="form-group">
                                         <label for="gradiva">Gradiva: </label>
                                         <input type="number" class="form-control" name="gradiva" id="gradiva"
-                                            placeholder="Gradiva" value={{ old('gradiva') }}>
+                                            placeholder="Gradiva" value="{{ old('gradiva') }}">
                                         @error('gradiva')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -412,7 +414,7 @@
                                     <div class="form-group">
                                         <label for="para">Para: </label>
                                         <input type="number" class="form-control" name="para" id="para"
-                                            placeholder="Para" value={{ old('para') }}>
+                                            placeholder="Para" value="{{ old('para') }}">
                                         @error('para')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -422,7 +424,7 @@
                                     <div class="form-group">
                                         <label for="LMP">LMP: </label>
                                         <input type="date" class="form-control" name="LMP" id="LMP"
-                                            placeholder="LMP" value={{ old('LMP') }}>
+                                            placeholder="LMP" value="{{ old('LMP') }}">
                                         @error('LMP')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -435,7 +437,7 @@
                                     <div class="form-group">
                                         <label for="EDC">EDC: </label>
                                         <input type="date" class="form-control" name="EDC" id="EDC"
-                                            placeholder="EDC" value={{ old('EDC') }}>
+                                            placeholder="EDC" value="{{ old('EDC') }}">
                                         @error('EDC')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -469,7 +471,7 @@
                                         <label for="name_of_husband">Name of Husband: </label>
                                         <input type="text" class="form-control" name="name_of_husband"
                                             id="name_of_husband" placeholder="Name of Husband"
-                                            value={{ old('name_of_husband') }}>
+                                            value="{{ old('name_of_husband') }}">
                                         @error('name_of_husband')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -487,7 +489,7 @@
                                     <div class="form-group">
                                         <label for="category">Category: </label>
                                         <input type="text" class="form-control" name="category" id="category"
-                                            placeholder="Category" value={{ old('category') }}>
+                                            placeholder="Category" value="{{ old('category') }}">
                                         @error('category')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -497,7 +499,7 @@
                                     <div class="form-group">
                                         <label for="pin">PIN: </label>
                                         <input type="text" class="form-control" name="pin" id="pin"
-                                            placeholder="PIN" value={{ old('pin') }}>
+                                            placeholder="PIN" value="{{ old('pin') }}">
                                         @error('pin')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -594,7 +596,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#sex').change(function() {
                 if ($(this).val() == 'male') {
@@ -604,8 +606,42 @@
                 }
             });
         });
-    </script>
+    </script> --}}
+    {{-- <script>
+        $(document).ready(function() {
+            var sexElement = $('#sex');
+            var pregWomenElement = $('#preg_women');
 
+            sexElement.change(function() {
+                if (sexElement.val() == 'male') {
+                    pregWomenElement.hide();
+                } else {
+                    pregWomenElement.show();
+                }
+            });
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            var sexElement = $('#sex');
+            var pregWomenElement = $('#preg_women');
+
+            if (sexElement.val() === 'male') {
+                pregWomenElement.hide();
+            } else {
+                pregWomenElement.show();
+            }
+
+            sexElement.change(function() {
+                if ($(this).val() === 'male') {
+                    pregWomenElement.hide();
+                } else {
+                    pregWomenElement.show();
+                }
+            });
+        });
+    </script>
 
     <!-- webcam setup -->
 

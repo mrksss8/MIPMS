@@ -10,12 +10,15 @@ class BarangayController extends Controller
     public function index()
     {
 
-        $brgys = Barangay::all();
+        $brgys = Barangay::paginate(5);
         return view('brgy.index', compact('brgys'));
     }
 
     public function store(request $request)
     {
+
+        $request->validate(['barangay' => 'required|unique:barangays',], ['barangay.required' => 'The barangay field is required.', 'barangay.unique' => 'The barangay already exists.',]);
+
 
         Barangay::create($request->all());
 

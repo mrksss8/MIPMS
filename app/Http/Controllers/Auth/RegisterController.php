@@ -57,6 +57,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -76,7 +77,7 @@ class RegisterController extends Controller
             'password' => $data['password'],
         ]);
 
-        $user->assignRole($data['roles']);
+        $user->assignRole($data['role']);
 
         return Auth::user();
     }

@@ -37,7 +37,10 @@
                                 <div class="form-group">
                                     <label for="brand_name">Barangay Name: </label>
                                     <input type="text" class="form-control" name="barangay" placeholder="Barangay Name"
-                                        required>
+                                        required value={{ old('barangay') }}>
+                                    @error('barangay')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -74,8 +77,9 @@
                             </tbody>
                         </table>
                         <div class="card-footer">
-
+                            {{ $brgys->onEachSide(2)->links() }}
                         </div>
+
                     </div>
                 </div>
             </div>

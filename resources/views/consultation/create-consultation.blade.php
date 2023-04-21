@@ -121,7 +121,7 @@
                                 <div class="form-group">
                                     <label for="last_name">Date: </label>
                                     <input type="date" class="form-control" name="date" id="date"
-                                        placeholder="Date" value={{ old('date') }}>
+                                        placeholder="Date" value="{{ old('date') }}">
                                     @error('date')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -132,7 +132,7 @@
                                 <div class="form-group">
                                     <label for="middle_name">Height (CM): </label>
                                     <input type="number" class="form-control" name="height" id="height"
-                                        placeholder="Height" value={{ old('height') }}>
+                                        placeholder="Height" value="{{ old('height') }}">
                                     @error('height')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -142,7 +142,7 @@
                                 <div class="form-group">
                                     <label for="middle_name">Weight (KG): </label>
                                     <input type="number" class="form-control" name="weight" id="weght"
-                                        placeholder="Weight" value={{ old('weight') }}>
+                                        placeholder="Weight" value="{{ old('weight') }}">
                                     @error('weight')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -154,7 +154,7 @@
                                 <div class="form-group">
                                     <label for="last_name">BP/MN/HTG: </label>
                                     <input type="text" class="form-control" name="BP" id="BP"
-                                        placeholder="BP" value={{ old('BP') }}>
+                                        placeholder="BP" value="{{ old('BP') }}">
                                     @error('BP')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -164,7 +164,7 @@
                                 <div class="form-group">
                                     <label for="first_name">BPM/PR: </label>
                                     <input type="text" class="form-control" name="PR" id="PR"
-                                        placeholder="PR" value={{ old('PR') }}>
+                                        placeholder="PR" value="{{ old('PR') }}">
                                     @error('PR')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -174,7 +174,7 @@
                                 <div class="form-group">
                                     <label for="middle_name">RR: </label>
                                     <input type="number" class="form-control" name="RR" id="RR"
-                                        placeholder="RR" value={{ old('RR') }}>
+                                        placeholder="RR" value="{{ old('RR') }}">
                                     @error('RR')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -184,7 +184,7 @@
                                 <div class="form-group">
                                     <label for="middle_name">CC/O2/SAT%: </label>
                                     <input type="text" class="form-control" name="CC" id="CC"
-                                        placeholder="CC" value={{ old('CC') }}>
+                                        placeholder="CC" value="{{ old('CC') }}">
                                     @error('CC')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

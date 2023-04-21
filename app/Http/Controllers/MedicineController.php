@@ -17,7 +17,7 @@ class MedicineController extends Controller
     public function index()
     {
 
-        $medicines = Medicine::with('category', 'dosage')->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->paginate(15);
+        $medicines = Medicine::with('category', 'dosage')->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->paginate(10);
         return view('medicine.index', compact('medicines'));
     }
 
