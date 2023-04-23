@@ -19,12 +19,19 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         // dd(Patient::with('consultation')->get());
 
-        $patients = Patient::with('consultation', 'infaChildInfo', 'pregWomen', 'philHealthInfo')->orderBy('id', 'desc')->paginate(10);
+        $patients = Patient::query()
+            ->where('last_name', 'LIKE', "%{$request->term}%")
+            ->orWhere('first_name', 'LIKE', "%{$request->term}%")
+            ->orWhere('middle_name', 'LIKE', "%{$request->term}%")
+            ->with('consultation', 'infaChildInfo', 'pregWomen', 'philHealthInfo')
+            ->orderBy('id', 'desc')->paginate(10);
+
+
 
         return view('patient.index', compact('patients'));
     }

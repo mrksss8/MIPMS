@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                         <div class="card-footer">
-                            {{-- {{ $consultations->onEachSide(2)->links() }} --}}
+                            {{ $for_treatments->onEachSide(2)->links() }}
                         </div>
                     </div>
                 </div>

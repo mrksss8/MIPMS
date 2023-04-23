@@ -57,86 +57,101 @@
                         </p>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Family ID</p>
+
+                            <div class="col-md-4">
+                                <img src="{{ url('storage/patient/' . $patient->image) }}" alt="avatar"
+                                    class=" img-fluid" style="width: 490px;">
                             </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->family_id }} </p>
+
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Family ID</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->family_id }} </p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->first_name }}
+                                            {{ $patient->middle_name }}
+                                            {{ $patient->last_name }}</p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Address</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->address->house_num }},
+                                            {{ $patient->address->street }},
+                                            {{ $patient->address->purok }},{{ $patient->address->brgy }},
+                                            {{ $patient->address->muniCity }},
+                                            {{ $patient->address->province }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Sex</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->sex }}</p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Birthday</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            {{ \Carbon\Carbon::parse($patient->birth_date)->format('F j, Y') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Age</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">
+                                            {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Phone</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->contact_num }}</p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Civil Status</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ $patient->civil_status }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Full Name</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->first_name }} {{ $patient->middle_name }}
-                                    {{ $patient->last_name }}</p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Address</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->address->house_num }},
-                                    {{ $patient->address->street }},
-                                    {{ $patient->address->purok }},{{ $patient->address->brgy }},
-                                    {{ $patient->address->muniCity }},
-                                    {{ $patient->address->province }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Sex</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->sex }}</p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Birthday</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">
-                                    {{ \Carbon\Carbon::parse($patient->birth_date)->format('F j, Y') }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Age</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">
-                                    {{ \Carbon\Carbon::parse($patient->birth_date)->diff(\Carbon\Carbon::now())->format('%y years old') }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Phone</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->contact_num }}</p>
-                            </div>
-                        </div>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Civil Status</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $patient->civil_status }}</p>
-                            </div>
-                        </div>
+
+
+
+
                         <p class="mt-2 p-1 bg-primary text-center ">
                             <span class="text-white">
                                 PhilHealth Info

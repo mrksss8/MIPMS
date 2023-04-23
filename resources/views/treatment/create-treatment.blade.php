@@ -207,7 +207,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Comments/Findings/Diagnosis</label>
-                                    <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis" required></textarea>
+                                    <textarea class="form-control" name="findings" style="height: 100px;" placeholder="Enter diagnosis" required>{{ old('findings') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -221,10 +221,18 @@
                                         <label for="medicine_id">Brand Name/Generic Name: </label>
                                         <select class="form-control" name="medicine_id[]" id="medicine_id" required>
                                             <option selected disabled>Brand Name/Generic Name</option>`
-                                            @foreach ($medicines as $medicine)
-                                                <option value="{{ $medicine->med_id }}">
+                                            {{-- @foreach ($medicines as $medicine)
+                                                <option value="{{ $medicine->med_id }}" {{ {{ implode(',', (array) old('medicine_id')) }} == $medicine->med_id ? 'selected' : '' }}>
                                                     {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}</option>
+                                            @endforeach --}}
+
+                                            @foreach ($medicines as $medicine)
+                                                <option value="{{ $medicine->med_id }}"
+                                                    {{ in_array($medicine->med_id, (array) old('medicine_id')) ? 'selected' : '' }}>
+                                                    {{ $medicine->brand_name }}/{{ $medicine->dosage->dosage }}
+                                                </option>
                                             @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -233,14 +241,15 @@
                                     <div class="form-group">
                                         <label for="quantity">Quantity: </label>
                                         <input type="number" class="form-control" name="quantity[]" id="quantity"
-                                            placeholder="Quantity">
+                                            placeholder="Quantity" value="{{ implode(',', (array) old('quantity')) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="description">Description: </label>
                                         <input type="text" class="form-control" name="description[]" id="description"
-                                            placeholder="Description">
+                                            placeholder="Description"
+                                            value="{{ implode(',', (array) old('description')) }}">
                                     </div>
                                 </div>
                             </div>

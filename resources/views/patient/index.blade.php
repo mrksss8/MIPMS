@@ -27,7 +27,43 @@
         <div class="col-lg-12 ">
             <div class="card shadow">
                 <div class="card-header">
-                    <h5 class="text-primary fw-bold">Patient List</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary fw-bold">Patient List</h5>
+                        </div>
+                        <div class="col-md-6">
+
+
+
+                            <form action="{{ route('patient.index') }}" method="GET" role="search">
+
+                                <div class="input-group">
+                                    <span class="input-group-btn mr-2 mt-1">
+                                        <button class="btn btn-info" type="submit" title="Search Patient">
+                                            <span class="fas fa-search"></span>
+                                        </button>
+                                    </span>
+                                    <input type="text" class="form-control mr-2" name="term"
+                                        placeholder="Search Patients" id="term">
+                                    <a href="{{ route('patient.index') }}" class=" mt-1">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-danger" type="button" title="Refresh page">
+                                                <span class="fas fa-sync-alt"></span>
+                                            </button>
+                                        </span>
+                                    </a>
+                                </div>
+                            </form>
+
+                            {{-- 
+
+                            <form>
+                                <input type="search" class="form-control" name="search"
+                                    placeholder="Search Patient">
+                            </form> --}}
+
+                        </div>
+                    </div>
 
                 </div>
                 <div class="card-body">
@@ -40,7 +76,7 @@
 
 
                     <div>
-                        <table class="table" id="myTable">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Name</th>

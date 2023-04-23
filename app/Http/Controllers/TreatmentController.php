@@ -31,7 +31,7 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        $for_treatments = Consultation::with('patient')->where('treatment_id', null)->orderBy('date', 'desc')->paginate(5);
+        $for_treatments = Consultation::with('patient')->where('treatment_id', null)->orderBy('date', 'asc')->paginate(10);
         return view('treatment.create', compact('for_treatments'));
     }
 
@@ -86,23 +86,23 @@ class TreatmentController extends Controller
                     $consultation->treatment_id = $treatment->id;
                     $consultation->save();
 
-                    if ($request->lab_name != null) {
+                    // if ($request->lab_name != null) {
 
-                        for ($j = 0; $j < count($request->lab_name); $j++) {
+                    //     for ($j = 0; $j < count($request->lab_name); $j++) {
 
-                            $lab_des = $request->lab_name[$i] . "_des";
-                            $laboratories = [
-                                [
-                                    'treatment_id' => $treatment->id,
-                                    'lab_name' => $request->lab_name[$j],
-                                    'lab_des' => $request->$lab_des,
-                                    'created_at' => Carbon::now(),
-                                    'updated_at' => Carbon::now(),
-                                ]
-                            ];
-                            Laboratory::insert($laboratories);
-                        }
-                    }
+                    //         $lab_des = $request->lab_name[$i] . "_des";
+                    //         $laboratories = [
+                    //             [
+                    //                 'treatment_id' => $treatment->id,
+                    //                 'lab_name' => $request->lab_name[$j],
+                    //                 'lab_des' => $request->$lab_des,
+                    //                 'created_at' => Carbon::now(),
+                    //                 'updated_at' => Carbon::now(),
+                    //             ]
+                    //         ];
+                    //         Laboratory::insert($laboratories);
+                    //     }
+                    // }
 
                     $medicines = [
                         [
@@ -135,7 +135,7 @@ class TreatmentController extends Controller
                     }
                 } else {
                     $med = Medicine::where('med_id', $request->medicine_id[$i])->where('stocks', '>', 0)->orderBy('expi_date', 'asc')->latest()->first();
-                    return redirect()->back()->with('error', "Insuficient Medicince {$med->brand_name}");
+                    return redirect()->back()->with('error', "Insuficient Medicince {$med->brand_name}")->withInput();
                 }
             }
         } else {
@@ -146,20 +146,20 @@ class TreatmentController extends Controller
             $consultation->save();
 
 
-            for ($i = 0; $i < count($request->lab_name); $i++) {
+            // for ($i = 0; $i < count($request->lab_name); $i++) {
 
-                $lab_des = $request->lab_name[$i] . "_des";
-                $laboratories = [
-                    [
-                        'treatment_id' => $treatment->id,
-                        'lab_name' => $request->lab_name[$i],
-                        'lab_des' => $request->$lab_des,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                    ]
-                ];
-                Laboratory::insert($laboratories);
-            }
+            //     $lab_des = $request->lab_name[$i] . "_des";
+            //     $laboratories = [
+            //         [
+            //             'treatment_id' => $treatment->id,
+            //             'lab_name' => $request->lab_name[$i],
+            //             'lab_des' => $request->$lab_des,
+            //             'created_at' => Carbon::now(),
+            //             'updated_at' => Carbon::now(),
+            //         ]
+            //     ];
+            //     Laboratory::insert($laboratories);
+            // }
         }
 
 
@@ -167,7 +167,7 @@ class TreatmentController extends Controller
 
 
 
-        return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly');
+        return redirect()->route('treatment.create')->withSuccess('Treatment given successfuly')->withInput();
     }
 
     /**

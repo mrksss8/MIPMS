@@ -28,6 +28,12 @@
         h1 {
             font-family: 'Poppins', sans-serif;
         }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 
     <!-- data tables-->
@@ -51,12 +57,15 @@
                 <div class="alert alert-danger border-left-danger">{{ $errorMessage }}</div>
             @endif
 
-            <h1>Enter Verification Code</h1>
             <form action="{{ route('search_patient.verify') }}" method="POST">
                 @csrf
                 <input type="hidden" name="family_id" value="{{ $patientFamilyIDString }}">
                 <input type="hidden" name="veri_code_true" value={{ $randomNumber }}>
+                {{-- <h5 class="text-success">{{ $sent_message !== null ? $sent_message : 'Enter correct code' }}</h5> --}}
+                <br>
+                <h1>Enter Verification Code</h1>
                 <input type="number" class="form-control" name="veri_code" placeholder="Enter Code">
+                <br>
                 <div class="card-footer text-center">
                     <button type="submit" class="btn btn-primary btn-md ">Submit</button>
                 </div>

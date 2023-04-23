@@ -287,71 +287,73 @@
             </div>
         </div>
 
-        <div class="col-6">
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <p class="p-1 bg-primary text-center ">
-                        <span class="text-white">
-                            Pregnant Women Info
-                        </span>
-                    </p>
+        @if ($patient->sex == 'female')
+            <div class="col-6">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <p class="p-1 bg-primary text-center ">
+                            <span class="text-white">
+                                Pregnant Women Info
+                            </span>
+                        </p>
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">Gradiva</p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Gradiva</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->gradiva ?? 'None' }}</p>
+                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->gradiva ?? 'None' }}</p>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">PARA</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->para ?? 'None' }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">PARA</p>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">LMP</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->LMP ?? 'None' }}</p>
+                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->para ?? 'None' }}</p>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">EDC</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->EDC ?? 'None' }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">LMP</p>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">TT status</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->TT_status ?? 'None' }}</p>
+                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->LMP ?? 'None' }}</p>
-                        </div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">EDC</p>
-                        </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->EDC ?? 'None' }}</p>
-                        </div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">TT status</p>
-                        </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->TT_status ?? 'None' }}</p>
-                        </div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="mb-0">Name of Husband</p>
-                        </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ $patient->pregWomen->name_of_husband ?? 'None' }}</p>
+                        <hr class="my-2">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="mb-0">Name of Husband</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-muted mb-0">{{ $patient->pregWomen->name_of_husband ?? 'None' }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 
     <div class="card">

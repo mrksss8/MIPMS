@@ -51,15 +51,12 @@
                                 </div>
                             </form>
 
-
                             {{-- 
 
                             <form>
                                 <input type="search" class="form-control" name="search"
                                     placeholder="Search Patient">
                             </form> --}}
-
-
 
                         </div>
                     </div>

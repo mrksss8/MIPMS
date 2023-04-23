@@ -36,20 +36,21 @@ class SearchPatientController extends Controller
 
             // return view('search_patient.verify', compact('randomNumber', 'patientFamilyIDString'));
 
-            $basic = new \Vonage\Client\Credentials\Basic("bed04d30", "auFUxV8wbo2XeST1");
+            $basic = new \Vonage\Client\Credentials\Basic("ac3c7ced", "ooBGzqpaO8M6ELHd");
             $client = new \Vonage\Client($basic);
 
             $response = $client->sms()->send(
-                new \Vonage\SMS\Message\SMS("639159281108", 'PMIS-Bay', "Your Verification code is " . $randomNumber . " ")
+                new \Vonage\SMS\Message\SMS("639773807578", 'PMIS-Bay', "Your Verification code is " . $randomNumber . " ")
             );
 
             $message = $response->current();
 
             if ($message->getStatus() == 0) {
-                echo "The message sent successfully";
+                $sent_message = "The message sent successfully";
                 $errorMessage = null;
-                return view('search_patient.verify', compact('randomNumber', 'patientFamilyIDString', 'errorMessage'));
+                return view('search_patient.verify', compact('randomNumber', 'patientFamilyIDString', 'errorMessage', 'sent_message'));
             } else {
+                $sent_message = "Enter correct code";
                 echo "The message failed with status: " . $message->getStatus() . "\n";
             }
         }

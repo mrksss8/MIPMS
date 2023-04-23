@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('preg_womens', function (Blueprint $table) {
             $table->id();
-            $table->string('gradiva');
-            $table->string('para');
-            $table->date('LMP');
-            $table->date('EDC');
-            $table->string('TT_status');
-            $table->string('name_of_husband');
+            $table->string('gradiva')->nullable();
+            $table->string('para')->nullable();
+            $table->date('LMP')->nullable();
+            $table->date('EDC')->nullable();
+            $table->string('TT_status')->nullable();
+            $table->string('name_of_husband')->nullable();
             $table->timestamps();
         });
     }
