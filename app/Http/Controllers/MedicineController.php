@@ -43,7 +43,7 @@ class MedicineController extends Controller
     {
 
         $validated_request = $request->validate([
-            'brand_name' => 'required',
+            'brand_name' => 'required|regex:/^[A-Za-z\s]+$/|max:20',
             'stocks' => 'required',
             'dosage_id' => 'required',
             'category_id' => 'required',

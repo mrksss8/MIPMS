@@ -37,7 +37,7 @@ class MedicineCategoryController extends Controller
     {
 
         $validated_request = $request->validate([
-            'category' => 'required|unique:medicine_categories',
+            'category' => 'required|regex:/^[A-Za-z\s]+$/|unique:medicine_categories',
         ], ['category.unique' => 'Category has already exist']);
 
         MedicineCategory::create($validated_request);

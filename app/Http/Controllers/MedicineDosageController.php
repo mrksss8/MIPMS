@@ -39,7 +39,7 @@ class MedicineDosageController extends Controller
 
 
         $validated_request = $request->validate([
-            'dosage' => 'required|unique:medicine_dosages',
+            'dosage' => 'required|regex:/^[A-Za-z\s]+$/|unique:medicine_dosages',
         ], ['dosage.unique' => 'Dosage has already exist']);
 
 

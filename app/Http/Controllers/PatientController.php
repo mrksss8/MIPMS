@@ -59,9 +59,9 @@ class PatientController extends Controller
 
         $request->validate([
 
-            'last_name' => 'required|regex:/^[A-Za-z\s]+$/',
-            'first_name' => 'required|regex:/^[A-Za-z\s]+$/',
-            'middle_name' => 'regex:/^[A-Za-z\s]+$/',
+            'last_name' => 'required|regex:/^[A-Za-z\s]+$/|max:20',
+            'first_name' => 'required|regex:/^[A-Za-z\s]+$/|max:20',
+            'middle_name' => 'nullable|regex:/^[A-Za-z\s]+$/|max:20',
             'birth_date' => 'required',
             'sex' => 'required',
             'civil_status' => 'required',
@@ -70,8 +70,8 @@ class PatientController extends Controller
             'street' => 'required',
             'purok' => 'required',
             'brgy' => 'required',
-            'muniCity' => 'required',
-            'province' => 'required',
+            'muniCity' => 'required|regex:/^[A-Za-z\s]+$/',
+            'province' => 'required|regex:/^[A-Za-z\s]+$/',
             'image' => 'required',
 
         ]);
@@ -79,8 +79,8 @@ class PatientController extends Controller
         if ($request->has('infants_child_info')) {
             $request->validate([
 
-                'father_name' => 'required',
-                'mother_name' => 'required',
+                'father_name' => 'required|regex:/^[A-Za-z\s]+$/|max:30',
+                'mother_name' => 'required|regex:/^[A-Za-z\s]+$/|max:30',
                 'place_delivery' => 'required',
                 'type_of_delivery' => 'required',
                 'attended_by' => 'required',
@@ -120,9 +120,6 @@ class PatientController extends Controller
         }
 
         $address = Address::create($request->all());
-
-
-
 
         //image Request
         $img = $request->get('image');
