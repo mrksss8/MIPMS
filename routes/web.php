@@ -33,6 +33,14 @@ Route::get('/about', function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::controller(UserController::class)->group(
+        function () {
+            Route::get('user/status/{user_id}/{status_code}', 'updateStatus')->name('user.update_status');
+        }
+    );
+});
+
+Route::middleware(['auth'])->group(function () {
     Route::controller(DashboardController::class)->group(
         function () {
             Route::get('dashboard/', 'index')->name('dashboard.index');

@@ -19,6 +19,8 @@
         </div>
     @endif
 
+
+
     <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->
@@ -201,7 +203,9 @@
                                 <thead>
                                     <tr>
                                         <th>User</th>
+                                        <th>Email</th>
                                         <th>Role</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -209,10 +213,20 @@
                                     @forelse ($users as $user)
                                         <tr>
                                             <td>{{ $user->name }} {{ $user->last_name }}
+                                            <td>{{ $user->email }}
                                             <td>
                                                 @foreach ($user->roles as $role)
                                                     {{ $role->name }}
                                                 @endforeach
+                                            </td>
+                                            <td>
+                                                @if ($user->status == 1)
+                                                    <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 0]) }}"
+                                                        class="btn btn-sm btn-danger"><i class="fa fa-ban"></i></a>
+                                                @else
+                                                    <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 1]) }}"
+                                                        class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
