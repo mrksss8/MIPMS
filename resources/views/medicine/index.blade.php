@@ -29,7 +29,12 @@
                 <div class="card-header">
                     <h5 class="text-primary fw-bold">Medicine List</h5>
                 </div>
+                
                 <div class="card-body">
+
+                   <p class="text-danger">Red Text indicated medicine is expired</p>
+                            <p class="text-warning">Yellow Text indicated medicine will be expired in 1 month</p>
+                            <p style="color:#be4d25">Orange Text indicated medicine stock is below 10</p>
 
                     {{-- <div class="d-flex justify-content-end mb-4">
                             <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#store">
@@ -82,9 +87,7 @@
                             {{ $medicines->onEachSide(2)->links() }}
                         </div>
                         <div class="card-footer">
-                            <p class="text-danger">Red Text indicated medicine is expired</p>
-                            <p class="text-warning">Yellow Text indicated medicine will be expired in 1 month</p>
-                            <p style="color:#be4d25">Orange Text indicated medicine stock is below 10</p>
+                         
                         </div>
                     </div>
                 </div>

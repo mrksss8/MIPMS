@@ -220,13 +220,19 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                @if ($user->status == 1)
-                                                    <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 0]) }}"
-                                                        class="btn btn-sm btn-danger"><i class="fa fa-ban"></i></a>
-                                                @else
-                                                    <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 1]) }}"
-                                                        class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
-                                                @endif
+
+                                                @foreach ($user->roles as $role)
+                                                    @if ($role->name != 'Admin')
+                                                        @if ($user->status == 1)
+                                                            <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 0]) }}"
+                                                                class="btn btn-sm btn-danger"><i class="fa fa-ban"></i></a>
+                                                        @else
+                                                            <a href="{{ route('user.update_status', ['user_id' => $user->id, 'status_code' => 1]) }}"
+                                                                class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+
                                             </td>
                                         </tr>
                                     @empty

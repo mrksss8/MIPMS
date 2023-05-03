@@ -70,8 +70,8 @@ class PatientController extends Controller
             'street' => 'required',
             'purok' => 'required',
             'brgy' => 'required',
-            'muniCity' => 'required|regex:/^[A-Za-z\s]+$/',
-            'province' => 'required|regex:/^[A-Za-z\s]+$/',
+            // 'muniCity' => 'required|regex:/^[A-Za-z\s]+$/',
+            // 'province' => 'required|regex:/^[A-Za-z\s]+$/',
             'image' => 'required',
 
         ]);
